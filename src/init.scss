@@ -1,0 +1,27 @@
+* {
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+  color: #000000;
+}
+li{
+  list-style: none;
+}
+img{
+  border: 0;
+  vertical-align: middle;
+}
+select,input{
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+textarea{
+  resize: none;
+}
+button{
+  border: 0;
+  cursor: pointer;
+}

@@ -20,9 +20,12 @@
     "@vue/cli-plugin-vuex": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
     "@vue/eslint-config-standard": "^4.0.0",
+    "axios": "^0.19.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
@@ -35,9 +38,18 @@
       "@vue/standard"
     ],
     "rules": {
-      "semi": [2, "always"],
+      "semi": [
+        2,
+        "always"
+      ],
       "no-console": "off",
-      "no-unused-vars": "warn"
+      "no-unused-vars": "warn",
+      "no-new": "off",
+      "no-trailing-spaces": "off",
+      "indent": "off",
+      "no-extra-semi": "off",
+      "comma-dangle": "off",
+      "no-empty": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"
