@@ -1,8 +1,14 @@
+// eslint-disable-next-line import/no-duplicates
 import weChatLogo from '../assets/wechat.png';
+// eslint-disable-next-line import/no-duplicates
 import qqLogo from '../assets/tencent.png';
 import username from '../assets/username.png';
 import password from '../assets/password.png';
 import verifyCode from '../assets/validate.png';
+import email from '../assets/email.png';
+import session from '../assets/svg/session.png';
+import friend from '../assets/friends.png';
+
 export const logInList = [
     {
         placeholder: 'username',
@@ -33,7 +39,33 @@ export const logInHyperLink = [
     {
         name: '忘记密码',
         key: 'forgetPassword',
-        to: '/main/find_back'
+        to: '/main/forget_password'
+    }
+];
+
+export const registerInHyperLink = [
+    {
+        name: '登陆',
+        key: 'login',
+        to: '/main/login'
+    },
+    {
+        name: '忘记密码',
+        key: 'forgetPassword',
+        to: '/main/forget_password'
+    }
+];
+
+export const forgetInHyperLink = [
+    {
+        name: '登陆',
+        key: 'login',
+        to: '/main/login'
+    },
+    {
+        name: '注册新账号',
+        key: 'registerList',
+        to: '/main/register'
     }
 ];
 
@@ -56,7 +88,7 @@ console.log(registerList);
 registerList.push({
     placeholder: 'Email',
     key: 'email',
-    img: '../../assets/email.png',
+    img: email,
     type: 'text'
 });
 registerList.push(element);
@@ -105,5 +137,18 @@ export const mainControllerList = [
     },
     {
         key: 'close'
+    }
+];
+
+export const indexNavigatorList = [
+    {
+        key: 'session',
+        to: '/index/session',
+        logo: session
+    },
+    {
+        key: 'friends',
+        to: '/index/friends',
+        logo: friend
     }
 ];

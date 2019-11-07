@@ -12,13 +12,26 @@
                     @blur="blueHandler"
                     />
         </div>
-        <img v-if="hasImg" src="../../assets/temp.jpg" alt="" class="verifyCodeImg">
+        <template v-if="hasImg">
+            <div
+                    class="fetch_img"
+                    v-if="!isFetched"
+                    @click="clickHandler">
+                获取验证码
+            </div>
+            <img v-else src="../../assets/temp.jpg" alt="" class="verifyCodeImg" @click="clickHandler">
+        </template>
     </div>
 </template>
 
 <script>
     export default {
         name: 'Input',
+        data: function () {
+            return {
+                isFetched: false
+            };
+        },
         props: {
             type: {
                 type: String,
@@ -39,6 +52,14 @@
             logo: {
                 type: String,
                 required: true
+            },
+            storeName: {
+                type: String,
+                required: true
+            },
+            storeStatusName: {
+                type: String,
+                required: true
             }
         },
         methods: {
@@ -47,12 +68,16 @@
             },
             blueHandler: function () {
                 this.status = 'init';
+            },
+            clickHandler: function () {
+                console.log(this.isFetched);
+                this.isFetched = true;
             }
         },
         computed: {
             message: {
                 get: function () {
-                    return this.$store.state.logInForm[this.property];
+                    return (this.$store.state[this.storeName])[this.property];
                 },
                 set: function (value) {
                     this.$store.commit('updateForm', {
@@ -63,7 +88,7 @@
             },
             status: {
                 get: function () {
-                    return this.$store.state.logInFormStatus[this.property];
+                    return (this.$store.state[this.storeStatusName])[this.property];
                 },
                 set: function (value) {
                     this.$store.commit('updateFormStatus', {
@@ -124,6 +149,18 @@
             width: 96px;
             height: 36px;
             cursor: pointer;
+        }
+        .fetch_img {
+            cursor: pointer;
+            margin-left: 5px;
+            border: 2px solid #5C555C;
+            border-radius: 5px;
+            padding: 2.5px 12px;
+            font-size: 14px;
+            transition: border-color 0.5s ease;
+            &:hover {
+                border-color: #17BEBB;
+            }
         }
     }
     .focus {

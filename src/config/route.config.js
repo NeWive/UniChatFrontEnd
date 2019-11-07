@@ -13,6 +13,7 @@ const LogInPanel = () => import('../components/LogInPanel');
 const RegisterPanel = () => import('../components/RegisterPanel');
 const SessionPanel = () => import('../components/SessionPanel');
 const FriendsPanel = () => import('../components/FriendsPanel');
+const ForgetPasswordPanel = () => import('../components/ForgetPasswordPanel');
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routersConfig = [
                 path: 'register',
                 name: 'register',
                 component: RegisterPanel
+            },
+            {
+                path: 'forget_password',
+                name: 'forget_password',
+                component: ForgetPasswordPanel
             }
         ]
     },
@@ -44,12 +50,12 @@ const routersConfig = [
         },
         children: [
             {
-                path: 'session/',
+                path: 'session',
                 name: 'session',
                 component: SessionPanel
             },
             {
-                path: 'friends/',
+                path: 'friends',
                 name: 'friends',
                 component: FriendsPanel
             }

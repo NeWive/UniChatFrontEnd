@@ -2,15 +2,24 @@
     <div
             class="button"
             @click="clickHandler">
-        {{
-            content
-        }}
+        <template v-if="status">
+            <Loading/>
+        </template>
+        <template v-else>
+            {{
+                content
+            }}
+        </template>
     </div>
 </template>
 
 <script>
+    import Loading from './Loading';
     export default {
         name: 'FormButton',
+        components: {
+            Loading
+        },
         props: {
             content: {
                 required: true,
@@ -19,6 +28,10 @@
             clickHandler: {
                 type: Function,
                 default: () => {}
+            },
+            status: {
+                type: Boolean,
+                default: false
             }
         }
     };

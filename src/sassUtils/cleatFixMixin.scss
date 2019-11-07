@@ -1,0 +1,12 @@
+
+@mixin clearFix {
+  /* 触发 hasLayout */
+  zoom: 1;
+  &:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}

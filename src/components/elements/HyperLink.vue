@@ -1,8 +1,8 @@
 <template>
-    <div id="log_in_link">
+    <div id="hyper_link">
         <ul>
             <li
-                    v-for="item in logInHyperLink"
+                    v-for="item in list"
                     :key="item.key">
                 <router-link
                             :to="item.to">
@@ -16,20 +16,20 @@
 </template>
 
 <script>
-    import { logInHyperLink } from '../../config/list.config';
     export default {
-        name: 'LogInLink',
-        data: function () {
-            return {
-                logInHyperLink
-            };
+        name: 'HyperLink',
+        props: {
+            list: {
+                type: Array,
+                required: true
+            }
         }
     };
 </script>
 
 <style lang="scss">
     @import "../../sassUtils/fontMixin";
-    #log_in_link {
+    #hyper_link {
         padding: 0 84px 0 83px;
         margin-bottom: 20px;
         ul {
