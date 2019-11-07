@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import SessionIndexPanel from './elements/IndexMainPanel';
+    import SessionIndexPanel from './IndexMainPanel';
     import IndexNavigator from './elements/IndexNavigator';
     export default {
         name: 'IndexPanel',

@@ -9,7 +9,7 @@
                     v-for="(item, index) in sessionList"
                     :key="index"
                     :class="selectedGroupKey === item.key ? 'selected' : ''"
-                    @click.prevent.stop="setSelectedGroupId(item.key)">
+                    @click.prevent.stop="setSelectedGroupId(item.key, index)">
                 <div class="left">
                     <img :src="temp" alt="">
                 </div>
@@ -99,8 +99,12 @@
             hideScrollBlock () {
                 this.isScrolling = false;
             },
-            setSelectedGroupId (id) {
+            setSelectedGroupId (id, index) {
                 this.selectedGroupKey = id;
+                this.$store.commit('updateGlobalState', {
+                    key: 'selectedGroup',
+                    value: this.sessionList[index]
+                });
             },
             delHandler (index) {
                 this.$store.commit('spliceListItem', {
@@ -158,10 +162,12 @@
     @import "../../sassUtils/overFlow";
     #session_list {
         height: 100%;
-        float: left;
         overflow: hidden;
         position: relative;
         background: #FFFFFF;
+        border: 1px solid #D9DDE3;
+        border-top: 0;
+        box-sizing: border-box;
         ul {
             .selected {
                 border-left-color: #2CA0F6;
@@ -181,7 +187,6 @@
                 border-left: 6px solid transparent;
                 cursor: pointer;
                 border-bottom: 1px solid #D9DDE3;
-                border-right: 1px solid #D9DDE3;
                 position: relative;
                 &:hover {
                     border-left-color: #2CA0F6;

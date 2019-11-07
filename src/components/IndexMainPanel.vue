@@ -16,6 +16,7 @@
     #index_main_panel {
         height: 633px;
         background: #EEF0F3;
+        position: relative;
         .fade-enter-active, .fade-leave-active {
             transition: opacity .5s;
         }

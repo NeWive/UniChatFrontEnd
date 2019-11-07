@@ -7,7 +7,10 @@ Vue.use(Vuex);
 const store = {
     state: {
         isLoading: false,
-        selectedGroupKey: -1
+        selectedGroupKey: -1,
+        selectedGroup: {},
+        selectedChannelId: -1,
+        selectedChannel: {}
     },
     mutations: {
         updateGlobalState (state, payload) {
@@ -24,46 +27,72 @@ const store = {
                         key: 1,
                         channel: [
                             {
-                                name: '睡裙频道',
+                                name: '睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道',
                                 id: 1
-                            },
-                            {
-                                name: '睡裙频道',
-                                id: 2
-                            },
-                            {
-                                name: '睡裙频道',
-                                id: 3
-                            },
-                            {
-                                name: '睡裙频道',
-                                id: 4
-                            },
-                            {
-                                name: '睡裙频道',
-                                id: 5
-                            },
-                            {
-                                name: '睡裙频道',
-                                id: 6
-                            },
-                            {
-                                name: '睡裙频道',
-                                id: 7
-                            },
-                            {
-                                name: '睡裙频道',
-                                id: 8
                             }
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 2
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 3
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 4
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 5
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 6
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 7
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 8
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 9
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 10
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 11
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 12
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 13
+                            // },
+                            // {
+                            //     name: '睡裙频道',
+                            //     id: 14
+                            // }
                         ],
-                        content: [
+                        members: [
+                            // 1 狗群主 2 管理员 3 普通群员
                             {
                                 username: 'NeWive',
                                 id: '738767136',
                                 desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
                                 email: '738767136@qq.com',
                                 portrait: '../../assets/temp.jpg',
-                                key: 1
+                                key: 1,
+                                authority: 1
                             },
                             {
                                 username: 'NeWive',
@@ -71,7 +100,8 @@ const store = {
                                 desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
                                 email: '738767136@qq.com',
                                 portrait: '../../assets/temp.jpg',
-                                key: 2
+                                key: 2,
+                                authority: 2
                             },
                             {
                                 username: 'NeWive',
@@ -79,7 +109,8 @@ const store = {
                                 desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
                                 email: '738767136@qq.com',
                                 portrait: '../../assets/temp.jpg',
-                                key: 3
+                                key: 3,
+                                authority: 3
                             },
                             {
                                 username: 'NeWive',
@@ -87,7 +118,8 @@ const store = {
                                 desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
                                 email: '738767136@qq.com',
                                 portrait: '../../assets/temp.jpg',
-                                key: 4
+                                key: 4,
+                                authority: 3
                             },
                             {
                                 username: 'NeWive',
@@ -95,7 +127,8 @@ const store = {
                                 desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
                                 email: '738767136@qq.com',
                                 portrait: '../../assets/temp.jpg',
-                                key: 5
+                                key: 5,
+                                authority: 3
                             },
                             {
                                 username: 'NeWive',
@@ -103,7 +136,8 @@ const store = {
                                 desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
                                 email: '738767136@qq.com',
                                 portrait: '../../assets/temp.jpg',
-                                key: 6
+                                key: 6,
+                                authority: 3
                             },
                             {
                                 username: 'NeWive',
@@ -111,7 +145,71 @@ const store = {
                                 desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
                                 email: '738767136@qq.com',
                                 portrait: '../../assets/temp.jpg',
-                                key: 7
+                                key: 7,
+                                authority: 3
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 8,
+                                authority: 1
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 9,
+                                authority: 2
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 10,
+                                authority: 3
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 11,
+                                authority: 3
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 12,
+                                authority: 3
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 13,
+                                authority: 3
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 14,
+                                authority: 3
                             }
                         ]
                     },
@@ -152,7 +250,7 @@ const store = {
                                 id: 8
                             }
                         ],
-                        content: [
+                        members: [
                             {
                                 username: 'NeWive',
                                 id: '738767136',
@@ -248,7 +346,7 @@ const store = {
                                 id: 8
                             }
                         ],
-                        content: [
+                        members: [
                             {
                                 username: 'NeWive',
                                 id: '738767136',
@@ -344,7 +442,7 @@ const store = {
                                 id: 8
                             }
                         ],
-                        content: [
+                        members: [
                             {
                                 username: 'NeWive',
                                 id: '738767136',
@@ -440,7 +538,7 @@ const store = {
                                 id: 8
                             }
                         ],
-                        content: [
+                        members: [
                             {
                                 username: 'NeWive',
                                 id: '738767136',
@@ -536,7 +634,7 @@ const store = {
                                 id: 8
                             }
                         ],
-                        content: [
+                        members: [
                             {
                                 username: 'NeWive',
                                 id: '738767136',
@@ -632,7 +730,7 @@ const store = {
                                 id: 8
                             }
                         ],
-                        content: [
+                        members: [
                             {
                                 username: 'NeWive',
                                 id: '738767136',
@@ -728,7 +826,7 @@ const store = {
                                 id: 8
                             }
                         ],
-                        content: [
+                        members: [
                             {
                                 username: 'NeWive',
                                 id: '738767136',
@@ -824,7 +922,7 @@ const store = {
                                 id: 8
                             }
                         ],
-                        content: [
+                        members: [
                             {
                                 username: 'NeWive',
                                 id: '738767136',

@@ -3,9 +3,7 @@
         <div class="session_list_box">
             <SessionList/>
         </div>
-        <div class="session_box">
-            <SessionContent/>
-        </div>
+        <SessionContent/>
     </div>
 </template>
 
@@ -30,12 +28,13 @@
 <style lang="scss">
     @import "../sassUtils/cleatFixMixin";
     #session_panel {
+        position: absolute;
+        width: 100%;
         height: 100%;
-        @include clearFix;
+        //@include clearFix;
         .session_list_box {
             height: 100%;
             @include clearFix;
-            overflow: hidden;
             float: left;
         }
     }
