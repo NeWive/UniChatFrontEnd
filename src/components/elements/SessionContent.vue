@@ -3,20 +3,30 @@
         <transition name="expand">
             <SessionInfo v-if="selectedGroupKey > -1"/>
         </transition>
+        <transition name="expand">
+            <SessionMessage v-if="selectedChannelId > -1"/>
+        </transition>
     </div>
 </template>
 
 <script>
     import SessionInfo from './SessionInfo';
+    import SessionMessage from './SessionMessage';
     export default {
         name: 'SessionContent',
         components: {
-            SessionInfo
+            SessionInfo,
+            SessionMessage
         },
         computed: {
             selectedGroupKey: {
                 get () {
                     return this.$store.state.selectedGroupKey;
+                }
+            },
+            selectedChannelId: {
+                get () {
+                    return this.$store.state.selectedChannelId;
                 }
             }
         }

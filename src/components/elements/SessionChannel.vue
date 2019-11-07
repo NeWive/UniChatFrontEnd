@@ -3,35 +3,39 @@
             id="session_channel"
             @wheel="scrollHandler">
         <div class="window">
-            <ul :style="{
-                marginTop: `${ulMarginTop}px`
-            }">
-                <li
-                        v-for="(item, index) in groupChannel"
-                        :key="item.id"
-                        :class="selectedChannelId === item.id ? 'selected' : ''"
-                        @click="clickHandler(item.id, index)"
-                        >
-                    <a
-                            href=""
-                            @click.prevent="() => {}">
-                        <img src="../../assets/channel.png" alt="">
-                        <span class="channel_name">
-                            {{
-                                item.name
-                            }}
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a @click.prevent="() => {}">
-                        <img src="../../assets/add.png" alt="">
-                        <span class="channel_name">
-                            添加频道
-                        </span>
-                    </a>
-                </li>
-            </ul>
+            <transition name="fade" mode="out-in">
+                <ul :style="{
+                    marginTop: `${ulMarginTop}px`
+                }">
+                    <template v-for="(item, index) in groupChannel">
+                        <transition :key="item.id" name="fade" mode="out-in">
+                            <li
+                                    :class="selectedChannelId === item.id ? 'selected' : ''"
+                                    @click="clickHandler(item.id, index)"
+                            >
+                                <a
+                                        href=""
+                                        @click.prevent="() => {}">
+                                    <img src="../../assets/channel.png" alt="">
+                                    <span class="channel_name">
+                                                {{
+                                                    item.name
+                                                }}
+                                            </span>
+                                </a>
+                            </li>
+                        </transition>
+                    </template>
+                    <li>
+                        <a @click.prevent="() => {}">
+                            <img src="../../assets/add.png" alt="">
+                            <span class="channel_name">
+                                添加频道
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </transition>
         </div>
         <Scroll
                 :top="top"
@@ -53,6 +57,7 @@
 <script>
     import Scroll from './Scroll';
     import { debounce } from '../../module/debounce';
+    import { testMessage } from '../../config/list.config';
     export default {
         name: 'ChannelBox',
         computed: {
@@ -140,7 +145,11 @@
                 this.selectedChannelId = id;
                 this.$store.commit('updateGlobalState', {
                     key: 'selectedChannel',
-                    value: index
+                    value: this.groupChannel[index]
+                });
+                this.$store.commit('updateGlobalState', {
+                    key: 'channelMessage',
+                    value: testMessage
                 });
             }
         }
@@ -150,22 +159,27 @@
 <style lang="scss">
     @import "../../sassUtils/overFlow";
     @import "../../sassUtils/fontMixin";
+
     #session_channel {
         height: 223px;
         padding: 12px 24px 0 24px;
         position: relative;
+
         .window {
             overflow: hidden;
             height: 100%;
             border-bottom: 1px solid #D9DDE3;
+
             ul {
                 li {
                     width: 100%;
                     margin-bottom: 18px;
                     cursor: pointer;
+
                     &:last-child {
                         margin-bottom: 0;
                     }
+
                     &:hover {
                         a {
                             span {
@@ -173,14 +187,17 @@
                             }
                         }
                     }
+
                     a {
                         img, span {
                             display: inline-block;
                             vertical-align: middle;
                         }
+
                         img {
                             margin-right: 13px;
                         }
+
                         span {
                             transition: color 0.5s ease;
                             color: #333333;
@@ -192,6 +209,7 @@
                         }
                     }
                 }
+
                 .selected {
                     a {
                         span {
@@ -199,8 +217,18 @@
                         }
                     }
                 }
+
+                .fade-enter-active, .fade-leave-active {
+                    transition: opacity .5s;
+                }
+
+                .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+                {
+                    opacity: 0;
+                }
             }
         }
+
         .scroll {
             position: absolute;
             top: 0;

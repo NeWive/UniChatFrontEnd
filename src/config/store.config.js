@@ -5,16 +5,22 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const store = {
+    // selectedChannelId 为Index selectedGroupId 为 Index
     state: {
         isLoading: false,
         selectedGroupKey: -1,
         selectedGroup: {},
         selectedChannelId: -1,
-        selectedChannel: {}
+        selectedChannel: {},
+        channelMessage: [],
+        preMessage: []
     },
     mutations: {
         updateGlobalState (state, payload) {
             state[payload.key] = payload.value;
+        },
+        pushIntoChannelMessage (state, payload) {
+
         }
     },
     actions: {},

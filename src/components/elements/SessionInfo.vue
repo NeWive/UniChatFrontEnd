@@ -20,7 +20,7 @@
 <style lang="scss">
     #session_info {
         border-right: 1px solid #D9DDE3;
-        display: inline-block;
+        float: left;
         height: 100%;
         box-sizing: border-box;
     }

@@ -152,3 +152,31 @@ export const indexNavigatorList = [
         logo: friend
     }
 ];
+
+export let testMessage = [
+
+];
+export let externalMessage = [
+
+];
+for (let item = 0; item < 100; item++) {
+    let time = new Date().getTime();
+    item > 4 ? externalMessage.push({
+        time: time,
+        id: '123456',
+        message: 'yingyingyuing' + item
+    }) : testMessage.push({
+        time: time,
+        id: '123456',
+        message: 'yingyingyuing' + item
+    });
+    item > 4 ? externalMessage.push({
+        time: time,
+        id: '738767136',
+        message: 'yingyingyuing' + item
+    }) : testMessage.push({
+        time: time,
+        id: '738767136',
+        message: 'yingyingyuingyingyingyuingyingyingyuingyingyingyuingyingyingyuingyingyingyuingyingyingyuingyingyingyuing' + item
+    });
+}
