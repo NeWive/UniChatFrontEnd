@@ -1,141 +1,79 @@
 <template>
     <div
-            id="session_list"
-            @wheel="scrollHandler">
-        <ul :style="{
-            marginTop: `${ulMarginTop}px`
-        }">
-            <li
-                    v-for="(item, index) in sessionList"
-                    :key="index"
-                    :class="selectedGroupKey === item.key ? 'selected' : ''"
-                    @click.prevent.stop="setSelectedGroupId(item.key, index)">
-                <div class="left">
-                    <img :src="temp" alt="">
-                </div>
-                <div class="name">
-                    <p>
-                        {{
-                            item.name
-                        }}
-                    </p>
-                </div>
-                <div class="unread_message_count">
-                    <p>
-                        1111
-                    </p>
-                </div>
-                <div
-                        class="close_button"
-                        @click="delHandler(index)">
-                    <div class="edge">
-
+            id="session_list">
+        <ul>
+            <transition-group name="list">
+                <li
+                        v-for="(item, index) in sessionList"
+                        :key="item.key"
+                        :class="selectedGroupKey === item.key ? 'selected' : ''"
+                        @click.prevent.stop="setSelectedGroupId(item, index)">
+                    <div class="left">
+                        <img :src="temp" alt="">
                     </div>
-                </div>
-            </li>
+                    <div class="name">
+                        <p>
+                            {{
+                                item.type === 'group' ? item.name : item.username
+                            }}
+                        </p>
+                    </div>
+                    <div class="unread_message_count">
+                        <p>
+                            1111
+                        </p>
+                    </div>
+                    <div
+                            class="close_button"
+                            @click.stop="delHandler(index)">
+                        <div class="edge">
+
+                        </div>
+                    </div>
+                </li>
+            </transition-group>
         </ul>
-        <Scroll
-                :top="top"
-                :list-length="length"
-                :sel-height="selHeight"
-                :window-height="windowHeight"
-                :mouse-move-lock="mouseMoveLock"
-                :set-mouse-lock="setMouseMoveLock"
-                :set-top="setTop"
-                :set-ul-margin-top="setUlMarginTop"
-                :ul-margin-top="ulMarginTop"
-                :container-height="notShownHeight"
-                :scroll-block-height="scrollBlockHeight"
-                :is-moving="isScrolling"
-                />
     </div>
 </template>
 
 <script>
-    import Scroll from './Scroll';
     import temp from '../../assets/temp.jpg';
-    import { debounce } from '../../module/debounce';
+    import { testMessage } from '../../config/list.config';
     // height: 107px
     export default {
         name: 'SessionList',
         data: function () {
             return {
-                temp,
-                top: 0,
-                mouseMoveLock: false,
-                ulMarginTop: 0,
-                selHeight: 107,
-                windowHeight: 633,
-                isScrolling: false,
-                timer: null
+                temp
             };
         },
         methods: {
-            setMouseMoveLock (val) {
-                this.mouseMoveLock = val;
-            },
-            setTop (val) {
-                this.top = val;
-            },
-            setUlMarginTop (val) {
-                this.ulMarginTop = val;
-            },
-            scrollHandler (e) {
-                if (!this.isScrolling) {
-                    this.showScrollBlock();
-                }
-                let currentY = this.top;
-                let { deltaY } = e;
-                let y = deltaY > 0 ? 10 : -10;
-                if (currentY + y > 0 && currentY + y < this.windowHeight - this.scrollBlockHeight) {
-                   this.top = this.top + y;
-                   this.ulMarginTop = -(this.top + y) * this.notShownHeight / this.windowHeight;
-                }
-                debounce(this.hideScrollBlock, 2000, this);
-            },
-            showScrollBlock () {
-                this.isScrolling = true;
-            },
-            hideScrollBlock () {
-                this.isScrolling = false;
-            },
-            setSelectedGroupId (id, index) {
-                this.selectedGroupKey = id;
+            setSelectedGroupId ({ key, type, id }, index) {
+                this.$store.commit('clearAll');
+                // 通过key 区分是否选中
+                this.selectedGroupKey = key;
                 this.$store.commit('updateGlobalState', {
-                    key: 'selectedGroup',
-                    value: this.sessionList[index]
+                    key: type === 'person' ? 'selectedFriend' : 'selectedGroup',
+                    value: this.sessionList[index] // index 用于获取对应信息
                 });
+                if (type === 'person') {
+                    this.$store.commit('updateGlobalState', {
+                        key: 'messageList',
+                        value: testMessage
+                    });
+                }
             },
             delHandler (index) {
                 this.$store.commit('spliceListItem', {
                     index: index
                 });
+                this.$store.commit('clearGroup');
             }
         },
         computed: {
             sessionList: {
                 get () {
                     return this.$store.state.sessionList.list;
-                }
-            },
-            length: {
-                get () {
-                    return this.$store.state.sessionList.list.length;
-                }
-            },
-            notShownHeight: {
-                get () {
-                    return (this.length - (this.windowHeight / this.selHeight)) * this.selHeight + 36;
-                }
-            },
-            containerHeight: {
-                get () {
-                    return this.length * this.selHeight;
-                }
-            },
-            scrollBlockHeight: {
-                get () {
-                    return this.windowHeight / this.length;
                 }
             },
             selectedGroupKey: {
@@ -150,9 +88,6 @@
                 }
             },
 
-        },
-        components: {
-            Scroll
         }
     };
 </script>
@@ -160,26 +95,31 @@
 <style lang="scss">
     @import "../../sassUtils/fontMixin";
     @import "../../sassUtils/overFlow";
+
     #session_list {
         height: 100%;
-        overflow: hidden;
+        overflow-y: scroll;
         position: relative;
         background: #FFFFFF;
         border: 1px solid #D9DDE3;
         border-top: 0;
         box-sizing: border-box;
+        overflow-x: hidden;
         ul {
+            width: 232px;
+
             .selected {
                 border-left-color: #2CA0F6;
+
                 .name {
                     p {
                         color: #2CA0F8;
                     }
                 }
             }
+
             li {
                 background: #FFFFFF;
-                transition: border-left-color 0.5s ease;
                 padding: 26px 21px 28px 15px;
                 display: flex;
                 align-items: center;
@@ -188,28 +128,35 @@
                 cursor: pointer;
                 border-bottom: 1px solid #D9DDE3;
                 position: relative;
+                transition: all 0.5s ease;
                 &:hover {
                     border-left-color: #2CA0F6;
+
                     .name {
                         p {
                             color: #2CA0F8;
                         }
                     }
+
                     .close_button {
                         opacity: 0.75;
                     }
                 }
+
                 .left {
                     width: 52px;
                     height: 52px;
+
                     img {
                         width: 100%;
                         height: 100%;
                         border-radius: 100%;
                     }
                 }
+
                 .name {
                     margin-left: 9px;
+
                     p {
                         width: 96px;
                         height: 24px;
@@ -220,8 +167,10 @@
                         transition: color 0.5s ease;
                     }
                 }
+
                 .unread_message_count {
                     margin-left: 17px;
+
                     p {
                         width: 16px;
                         height: 16px;
@@ -233,6 +182,7 @@
                         @include overFlowOneLine;
                     }
                 }
+
                 .close_button {
                     width: 18px;
                     height: 18px;
@@ -246,15 +196,18 @@
                     align-items: center;
                     opacity: 0;
                     transition: opacity 0.5s ease;
+
                     &:hover {
                         opacity: 1;
                     }
+
                     .edge {
                         transform: rotate(45deg);
                         width: 12px;
                         height: 1px;
                         background: #FFFFFF;
                         position: relative;
+
                         &:after {
                             transform: rotate(-90deg);
                             width: 12px;
@@ -267,6 +220,7 @@
                 }
             }
         }
+
         .scroll {
             position: absolute;
             right: -8px;

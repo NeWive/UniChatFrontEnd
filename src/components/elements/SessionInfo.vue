@@ -23,5 +23,6 @@
         float: left;
         height: 100%;
         box-sizing: border-box;
+        width: 242px;
     }
 </style>

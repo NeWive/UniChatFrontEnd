@@ -1,12 +1,9 @@
 <template>
     <div
-            id="session_channel"
-            @wheel="scrollHandler">
+            id="session_channel">
         <div class="window">
             <transition name="fade" mode="out-in">
-                <ul :style="{
-                    marginTop: `${ulMarginTop}px`
-                }">
+                <ul >
                     <template v-for="(item, index) in groupChannel">
                         <transition :key="item.id" name="fade" mode="out-in">
                             <li
@@ -37,26 +34,10 @@
                 </ul>
             </transition>
         </div>
-        <Scroll
-                :top="top"
-                :list-length="length"
-                :sel-height="selHeight"
-                :window-height="windowHeight"
-                :mouse-move-lock="mouseMoveLock"
-                :set-mouse-lock="setMouseMoveLock"
-                :set-top="setTop"
-                :set-ul-margin-top="setUlMarginTop"
-                :ul-margin-top="ulMarginTop"
-                :container-height="notShownHeight"
-                :scroll-block-height="scrollBlockHeight"
-                :is-moving="isScrolling"
-        />
     </div>
 </template>
 
 <script>
-    import Scroll from './Scroll';
-    import { debounce } from '../../module/debounce';
     import { testMessage } from '../../config/list.config';
     export default {
         name: 'ChannelBox',
@@ -64,26 +45,6 @@
             groupChannel: {
                 get () {
                     return this.$store.state.selectedGroup.channel;
-                }
-            },
-            length: {
-                get () {
-                    return this.$store.state.selectedGroup.channel.length;
-                }
-            },
-            notShownHeight: {
-                get () {
-                    return (this.length - (this.windowHeight / this.selHeight)) * this.selHeight + 36;
-                }
-            },
-            containerHeight: {
-                get () {
-                    return this.length * this.selHeight;
-                }
-            },
-            scrollBlockHeight: {
-                get () {
-                    return this.windowHeight / this.length;
                 }
             },
             selectedChannelId: {
@@ -98,49 +59,12 @@
                 }
             }
         },
-        components: {
-            Scroll
-        },
         data: function () {
             return {
-                top: 0,
-                mouseMoveLock: false,
-                ulMarginTop: 0,
-                selHeight: 43,
-                windowHeight: 223,
-                isScrolling: false,
-                timer: null
+
             };
         },
         methods: {
-            setMouseMoveLock (val) {
-                this.mouseMoveLock = val;
-            },
-            setTop (val) {
-                this.top = val;
-            },
-            setUlMarginTop (val) {
-                this.ulMarginTop = val;
-            },
-            scrollHandler (e) {
-                if (!this.isScrolling) {
-                    this.showScrollBlock();
-                }
-                let currentY = this.top;
-                let { deltaY } = e;
-                let y = deltaY > 0 ? 10 : -10;
-                if (currentY + y > 0 && currentY + y < this.windowHeight - this.scrollBlockHeight) {
-                    this.top = this.top + y;
-                    this.ulMarginTop = -(this.top + y) * this.notShownHeight / this.windowHeight;
-                }
-                debounce(this.hideScrollBlock, 2000, this);
-            },
-            showScrollBlock () {
-                this.isScrolling = true;
-            },
-            hideScrollBlock () {
-                this.isScrolling = false;
-            },
             clickHandler (id, index) {
                 this.selectedChannelId = id;
                 this.$store.commit('updateGlobalState', {
@@ -148,7 +72,7 @@
                     value: this.groupChannel[index]
                 });
                 this.$store.commit('updateGlobalState', {
-                    key: 'channelMessage',
+                    key: 'messageList',
                     value: testMessage
                 });
             }
@@ -162,16 +86,18 @@
 
     #session_channel {
         height: 223px;
-        padding: 12px 24px 0 24px;
+        width: 241px;
+        padding: 12px 0 0;
         position: relative;
-
         .window {
-            overflow: hidden;
+            box-sizing: border-box;
+            overflow-y: scroll;
+            overflow-x: hidden;
             height: 100%;
             border-bottom: 1px solid #D9DDE3;
-
             ul {
                 li {
+                    padding: 0 21px;
                     width: 100%;
                     margin-bottom: 18px;
                     cursor: pointer;

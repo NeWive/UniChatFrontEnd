@@ -9,11 +9,1017 @@ const store = {
     state: {
         isLoading: false,
         selectedGroupKey: -1,
-        selectedGroup: {},
+        selectedGroup: {}, // 选中的选项 群组
         selectedChannelId: -1,
         selectedChannel: {},
-        channelMessage: [],
-        preMessage: []
+        selectedFriend: {}, // 选中的选项 好友
+        messageList: [],
+        preMessage: [],
+        currentFriendsListStatus: 1, // 1 好友 2 群聊
+        selectedGroupIndex: -1, // 好友分组
+        selectedChatGroupIndex: {},
+        friendsList: [
+            {
+                name: '我的好友分组11111111111111111111111',
+                children: [
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 1,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 2,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 3,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 4,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 5,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 6,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 7,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 8,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 9,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 10,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 11,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 12,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 13,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 14,
+                        authority: 3
+                    }
+                ]
+            },
+            {
+                name: '我的好友分组11111111111111111111111',
+                children: [
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 1,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 2,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 3,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 4,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 5,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 6,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 7,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 8,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 9,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 10,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 11,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 12,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 13,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 14,
+                        authority: 3
+                    }
+                ]
+            },
+            {
+                name: '我的好友分组11111111111111111111111',
+                children: [
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 1,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 2,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 3,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 4,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 5,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 6,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 7,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 8,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 9,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 10,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 11,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 12,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 13,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 14,
+                        authority: 3
+                    }
+                ]
+            },
+            {
+                name: '我的好友分组11111111111111111111111',
+                children: [
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 1,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 2,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 3,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 4,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 5,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 6,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 7,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 8,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 9,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 10,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 11,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 12,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 13,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 14,
+                        authority: 3
+                    }
+                ]
+            },
+            {
+                name: '我的好友分组11111111111111111111111',
+                children: [
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 1,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 2,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 3,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 4,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 5,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 6,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 7,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 8,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 9,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 10,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 11,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 12,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 13,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 14,
+                        authority: 3
+                    }
+                ]
+            },
+            {
+                name: '我的好友分组11111111111111111111111',
+                children: [
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 1,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 2,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 3,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 4,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 5,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 6,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 7,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 8,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 9,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 10,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 11,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 12,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 13,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 14,
+                        authority: 3
+                    }
+                ]
+            },
+            {
+                name: '我的好友分组11111111111111111111111',
+                children: [
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 1,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 2,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 3,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 4,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 5,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 6,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 7,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 8,
+                        authority: 1
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 9,
+                        authority: 2
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 10,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 11,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 12,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 13,
+                        authority: 3
+                    },
+                    {
+                        username: 'NeWive',
+                        id: '738767136',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                        key: 14,
+                        authority: 3
+                    }
+                ]
+            }
+        ],
+        groupsList: [
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            },
+            {
+                name: '我是你霸霸',
+                key: 1
+            }
+        ],
+        selectedUser: ''
     },
     mutations: {
         updateGlobalState (state, payload) {
@@ -21,6 +1027,17 @@ const store = {
         },
         pushIntoChannelMessage (state, payload) {
 
+        },
+        clearGroup (state) {
+            state.selectedGroupKey = -1;
+            state.selectedGroup = {};
+        },
+        clearAll (state) {
+            state.selectedChannelId = -1;
+            state.selectedChannel = {};
+            state.selectedGroupKey = -1;
+            state.selectedGroup = {};
+            state.selectedFriend = {};
         }
     },
     actions: {},
@@ -29,199 +1046,124 @@ const store = {
             state: {
                 list: [
                     {
-                        name: '我是你霸霸',
-                        key: 1,
-                        channel: [
-                            {
-                                name: '睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道睡裙频道',
-                                id: 1
-                            }
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 2
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 3
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 4
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 5
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 6
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 7
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 8
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 9
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 10
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 11
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 12
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 13
-                            // },
-                            // {
-                            //     name: '睡裙频道',
-                            //     id: 14
-                            // }
-                        ],
-                        members: [
-                            // 1 狗群主 2 管理员 3 普通群员
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 1,
-                                authority: 1
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 2,
-                                authority: 2
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 3,
-                                authority: 3
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 4,
-                                authority: 3
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 5,
-                                authority: 3
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 6,
-                                authority: 3
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 7,
-                                authority: 3
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 8,
-                                authority: 1
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 9,
-                                authority: 2
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 10,
-                                authority: 3
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 11,
-                                authority: 3
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 12,
-                                authority: 3
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 13,
-                                authority: 3
-                            },
-                            {
-                                username: 'NeWive',
-                                id: '738767136',
-                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                                email: '738767136@qq.com',
-                                portrait: '../../assets/temp.jpg',
-                                key: 14,
-                                authority: 3
-                            }
-                        ]
+                        username: '我是你亲爱的霸霸啊',
+                        key: 100,
+                        type: 'person',
+                        id: '1045442846',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
                     },
                     {
                         name: '你是我鹅子',
                         key: 2,
+                        type: 'group',
+                        channel: [
+                            {
+                                name: '睡裙频道',
+                                id: 1
+                            },
+                            {
+                                name: '睡裙频道',
+                                id: 2
+                            },
+                            {
+                                name: '睡裙频道',
+                                id: 3
+                            },
+                            {
+                                name: '睡裙频道',
+                                id: 4
+                            },
+                            {
+                                name: '睡裙频道',
+                                id: 5
+                            },
+                            {
+                                name: '睡裙频道',
+                                id: 6
+                            },
+                            {
+                                name: '睡裙频道',
+                                id: 7
+                            },
+                            {
+                                name: '睡裙频道',
+                                id: 8
+                            }
+                        ],
+                        members: [
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 1
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 2
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 3
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 4
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 5
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 6
+                            },
+                            {
+                                username: 'NeWive',
+                                id: '738767136',
+                                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                                email: '738767136@qq.com',
+                                portrait: '../../assets/temp.jpg',
+                                key: 7
+                            }
+                        ]
+                    },
+                    {
+                        username: '你是我可爱的鹅子啊我是你霸霸,',
+                        key: 1,
+                        type: 'person',
+                        id: '1485757155',
+                        desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
+                        email: '738767136@qq.com',
+                        portrait: '../../assets/temp.jpg',
+                    },
+                    {
+                        name: '你是我鹅子啊',
+                        key: 99,
+                        type: 'group',
                         channel: [
                             {
                                 name: '睡裙频道',
@@ -318,6 +1260,7 @@ const store = {
                     {
                         name: '我们是一家人',
                         key: 3,
+                        type: 'group',
                         channel: [
                             {
                                 name: '睡裙频道',
@@ -413,7 +1356,8 @@ const store = {
                     },
                     {
                         name: '我是你霸霸',
-                        ley: 4,
+                        key: 4,
+                        type: 'group',
                         channel: [
                             {
                                 name: '睡裙频道',
@@ -510,6 +1454,7 @@ const store = {
                     {
                         name: '你是我鹅子',
                         key: 5,
+                        type: 'group',
                         channel: [
                             {
                                 name: '睡裙频道',
@@ -606,6 +1551,7 @@ const store = {
                     {
                         name: '我们是一家人',
                         key: 8,
+                        type: 'group',
                         channel: [
                             {
                                 name: '睡裙频道',
@@ -702,6 +1648,7 @@ const store = {
                     {
                         name: '我是你霸霸',
                         key: 9,
+                        type: 'group',
                         channel: [
                             {
                                 name: '睡裙频道',
@@ -798,6 +1745,7 @@ const store = {
                     {
                         name: '你是我鹅子',
                         key: 10,
+                        type: 'group',
                         channel: [
                             {
                                 name: '睡裙频道',
@@ -894,6 +1842,7 @@ const store = {
                     {
                         name: '我们是一家人',
                         key: 11,
+                        type: 'group',
                         channel: [
                             {
                                 name: '睡裙频道',

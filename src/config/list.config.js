@@ -8,6 +8,8 @@ import verifyCode from '../assets/validate.png';
 import email from '../assets/email.png';
 import session from '../assets/svg/session.png';
 import friend from '../assets/friends.png';
+import friendsList from '../assets/friendsPanel.png';
+import groupList from '../assets/groupsList.png';
 
 export const logInList = [
     {
@@ -105,11 +107,15 @@ export const windowControllerList = [
 export const listGroup = [
     {
         name: '好友',
-        key: 'friends'
+        key: 'friends',
+        logo: friendsList,
+        index: 1,
     },
     {
         name: '群聊',
-        key: 'groups'
+        key: 'groups',
+        logo: groupList,
+        index: 2
     }
 ];
 
