@@ -98,6 +98,7 @@
 
     #session_list {
         height: 100%;
+        z-index: 99;
         overflow-y: scroll;
         position: relative;
         background: #FFFFFF;

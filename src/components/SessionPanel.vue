@@ -24,6 +24,13 @@
             return {
                 temp
             };
+        },
+        computed: {
+            isMessageLogOn: {
+                get () {
+                    return this.$store.state.isMessageLogOn;
+                }
+            }
         }
     };
 </script>

@@ -1,8 +1,5 @@
 <template>
-    <div :style="selectedType === 'group' ? {
-                float: 'left',
-                width: '717px'
-            } : {}"
+    <div
          id="session_message">
         <div class="name_panel">
             <transition name="fade">
@@ -10,7 +7,7 @@
                                     padding: '0 0 0 19px'
                                 } : {}">
                     {{
-                    selectedType === 'group' ? channelInfo.name : channelInfo.username
+                        selectedType === 'group' ? channelInfo.name : channelInfo.username
                     }}
                 </p>
             </transition>
@@ -45,20 +42,20 @@
                         <img alt="" src="../../assets/pic.png">
                     </a>
                 </div>
-                <div class="chat_log">
+                <div
+                        class="chat_log"
+                        @click="handleMessageLog"
+                        :class="isMessageLogOn ? 'on' : ''">
                     <span>
                         聊天记录
                     </span>
                 </div>
             </div>
-            <div :style="selectedType === 'person' ? {
-                width: '935px'
-            } : {}" class="input_panel">
-                <textarea cols="30" id="" name="" rows="10"></textarea>
-                <div :style="selectedType === 'person' ? {
-                width: '935px'
-
-            } : {}" class="button_panel">
+            <div
+                    :class="{groupInputBox: selectedType === 'group', groupInputBoxLog: selectedType === 'group' && isMessageLogOn === true, personInputBox: selectedType === 'person', personInputBoxLog: selectedType === 'person' && isMessageLogOn}"
+                    class="input_panel">
+                <textarea ></textarea>
+                <div  class="button_panel">
                     <div class="post_button">
                         发送
                     </div>
@@ -104,6 +101,11 @@
                 get () {
                     return this.$store.state.selectedGroup.type || this.$store.state.selectedFriend.type;
                 }
+            },
+            isMessageLogOn: {
+                get () {
+                    return this.$store.state.isMessageLogOn;
+                }
             }
         },
         data: function () {
@@ -115,6 +117,15 @@
                 isScrolling: false,
                 timer: null
             };
+        },
+        methods: {
+            handleMessageLog () {
+                this.$store.commit('handleMessageLog', {
+                    key: 'isMessageLogOn',
+                    isMessageLogOn: !this.$store.state.isMessageLogOn,
+                    width: !this.$store.state.isMessageLogOn ? (this.selectedType === 'group' ? 345 : 500) : 0
+                });
+            }
         }
     };
 </script>
@@ -133,7 +144,9 @@
             border-bottom: 1px solid #D9DDE3;
             padding: 16px 0 11px 19px;
             box-sizing: border-box;
-
+            position: relative;
+            z-index: 5;
+            background-color: #FFFFFF;
             .fade-enter-active, .fade-leave-active {
                 transition: opacity .5s;
             }
@@ -298,25 +311,30 @@
                         color: #585D68;
                     }
                 }
+                .on {
+                    border-bottom-color: #17BEBB;
+                }
             }
-
             .input_panel {
+                width: 928px;
                 float: left;
-                width: 100%;
-
+                margin-left: 5px;
+                transition: width 0.5s ease;
                 textarea {
                     resize: none;
                     width: 100%;
                     height: 70px;
                     border: 0;
                     box-sizing: border-box;
-                    padding: 0 10px;
+                    padding: 0 0 0 10px;
                 }
 
                 .button_panel {
                     display: flex;
                     flex-direction: row-reverse;
-                    padding-right: 27px;
+                    width: 70px;
+                    float: right;
+                    /*padding-right: 27px;*/
 
                     .post_button {
                         cursor: pointer;
@@ -328,6 +346,18 @@
 
                     }
                 }
+            }
+            .groupInputBox {
+                width: 685px;
+            }
+            .groupInputBoxLog {
+                width: 345px;
+            }
+            .personInputBox {
+                width: 928px;
+            }
+            .personInputBoxLog {
+                width: 430px;
             }
         }
     }

@@ -1019,7 +1019,9 @@ const store = {
                 key: 1
             }
         ],
-        selectedUser: ''
+        selectedUser: '',
+        isMessageLogOn: false,
+        messageLogWidth: 0
     },
     mutations: {
         updateGlobalState (state, payload) {
@@ -1038,6 +1040,12 @@ const store = {
             state.selectedGroupKey = -1;
             state.selectedGroup = {};
             state.selectedFriend = {};
+            state.isMessageLogOn = false;
+            state.messageLogWidth = 0;
+        },
+        handleMessageLog (state, payload) {
+            state.isMessageLogOn = payload.isMessageLogOn;
+            state.messageLogWidth = payload.width;
         }
     },
     actions: {},
