@@ -1,5 +1,11 @@
 <template>
     <div id="forget_password_panel">
+        <div id="register_panel_form">
+            <FindBackForm
+                    :list="findBackPassword"
+                    store-name="findBackForm"
+                    store-status-name="registerFormStatus"/>
+        </div>
         <HyperLink :list="forgetInHyperLink"/>
         <div class="button_container">
             <FormButton
@@ -13,16 +19,19 @@
 <script>
     import HyperLink from './elements/HyperLink';
     import FormButton from './elements/FormButton';
-    import { forgetInHyperLink } from '../config/list.config';
+    import FindBackForm from './elements/Form';
+    import { forgetInHyperLink, findBackPassword } from '../config/list.config';
     export default {
         name: 'ForgetPasswordPanel',
         data: function () {
             return {
-                forgetInHyperLink
+                forgetInHyperLink,
+                findBackPassword
             };
         },
         components: {
             HyperLink,
+            FindBackForm,
             FormButton
         },
         methods: {

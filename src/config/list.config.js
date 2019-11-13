@@ -104,6 +104,27 @@ export const windowControllerList = [
     }
 ];
 
+export const findBackPassword = [
+    {
+        placeholder: 'password',
+        key: 'password',
+        img: password,
+        type: 'password'
+    },
+    {
+        placeholder: 'repeat password',
+        key: 'repeat_password',
+        img: password,
+        type: 'password'
+    },
+    {
+        placeholder: 'Email',
+        key: 'email',
+        img: email,
+        type: 'text'
+    }
+];
+
 export const listGroup = [
     {
         name: '好友',

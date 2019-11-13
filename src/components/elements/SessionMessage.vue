@@ -123,7 +123,7 @@
                 this.$store.commit('handleMessageLog', {
                     key: 'isMessageLogOn',
                     isMessageLogOn: !this.$store.state.isMessageLogOn,
-                    width: !this.$store.state.isMessageLogOn ? (this.selectedType === 'group' ? 345 : 500) : 0
+                    width: !this.$store.state.isMessageLogOn ? (this.selectedType === 'group' ? 360 : 500) : 0
                 });
             }
         }

@@ -2010,6 +2010,19 @@ const store = {
             },
             actions: {}
         },
+        findBackForm: {
+            state: {
+                repeat_password: '',
+                password: '',
+                email: ''
+            },
+            mutations: {
+                updateForm (state, payload) {
+                    state[payload.key] = payload.value;
+                }
+            },
+            actions: {}
+        },
         registerFormStatus: {
             // 0 初始状态，focus，wrong，right,fetched
             state: {
