@@ -1830,7 +1830,12 @@ const store = {
             state[payload.key] = payload.value;
         },
         pushIntoChannelMessage (state, payload) {
-
+            let message = {
+                time: new Date().getTime(),
+                id: payload.id,
+                message: payload.message
+            };
+            state.messageList.push(message);
         },
         clearGroup (state) {
             state.selectedGroupKey = -1;

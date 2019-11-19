@@ -12,7 +12,7 @@
                 </p>
             </transition>
         </div>
-        <div class="message_panel">
+        <div class="message_panel" id="scroll_message_panel">
             <ul class="message_content">
                 <template v-for="(item, index) in messageList">
                     <transition :key="index" mode="out-in" name="fade">
@@ -25,7 +25,7 @@
                             <div class="message">
                                 <p>
                                     {{
-                                    item.message
+                                        item.message
                                     }}
                                 </p>
                             </div>
@@ -56,9 +56,12 @@
             <div
                     :class="{groupInputBox: selectedType === 'group', groupInputBoxLog: selectedType === 'group' && isMessageLogOn === true, personInputBox: selectedType === 'person', personInputBoxLog: selectedType === 'person' && isMessageLogOn}"
                     class="input_panel">
-                <textarea ></textarea>
+                <textarea v-model="chatMessage"></textarea>
                 <div  class="button_panel">
-                    <div class="post_button">
+                    <div
+                            class="post_button"
+                            @click="postMessage"
+                            @keydown.enter="postMessage">
                         发送
                     </div>
                 </div>
@@ -71,8 +74,9 @@
     export default {
         name: 'SessionMessage',
         mounted () {
-            let target = document.getElementsByClassName('message_panel')[0];
-            target.scrollTop = target.scrollHeight;
+            // let target = document.getElementById('scroll_message_panel');
+            // target.scrollTop = target.scrollHeight;
+            this.scrollToBottom();
         },
         computed: {
             channelInfo: {
@@ -117,10 +121,18 @@
                 ulBottom: 0,
                 windowHeight: 435,
                 isScrolling: false,
-                timer: null
+                timer: null,
+                chatMessage: ''
             };
         },
         methods: {
+            scrollToBottom () {
+                let target = document.getElementById('scroll_message_panel');
+                target.scrollTo({
+                    top: target.scrollHeight,
+                    behavior: 'smooth'
+                });
+            },
             handleMessageLog () {
                 this.$store.commit('handleMessageLog', {
                     key: 'isMessageLogOn',
@@ -134,6 +146,18 @@
                     portalElement: target,
                     allowEdit
                 });
+            },
+            postMessage () {
+                if (!this.chatMessage) {
+                    alert('不能为空');
+                } else {
+                    this.$store.commit('pushIntoChannelMessage', {
+                        id: this.user.id,
+                        message: this.chatMessage
+                    });
+                    this.chatMessage = '';
+                    setTimeout(this.scrollToBottom, 50);
+                }
             }
         }
     };

@@ -22,7 +22,11 @@
                 <img src="../../assets/svg/search.png" alt="">
             </div>
             <transition name="input">
-                <input type="text" v-if="isInputShown"/>
+                <input
+                        type="text"
+                        v-if="isInputShown"
+                        v-model="inputContent"
+                        />
             </transition>
         </div>
     </div>
@@ -35,12 +39,17 @@
         data: function () {
             return {
                 temp,
-                isInputShown: true
+                isInputShown: false,
+                inputContent: ''
             };
         },
         methods: {
             setInputVisible: function () {
-                this.isInputShown = !this.isInputShown;
+                if (this.inputContent) {
+
+                } else {
+                    this.isInputShown = !this.isInputShown;
+                }
             },
             openPortal () {
                 this.$store.commit('handlePortal', {

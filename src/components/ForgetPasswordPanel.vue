@@ -57,6 +57,10 @@
 
 <style lang="scss">
     #forget_password_panel {
+        #register_panel_form {
+            display: flex;
+            justify-content: center;
+        }
         .button_container {
             padding: 0 126px 0 121px;
         }
