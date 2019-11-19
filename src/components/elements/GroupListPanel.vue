@@ -5,7 +5,8 @@
             <li
                     v-for="(item, index) in groupList"
                     :key="index"
-                    class="friends_group_list">
+                    class="friends_group_list"
+                    @dblclick="jumpToSession(item)">
                 <a
                         href=""
                         @click.prevent="setSelectedGroupIndex(index)"
@@ -59,6 +60,27 @@
         methods: {
             setSelectedGroupIndex (index) {
                 this.selectedGroupIndex = index;
+            },
+            jumpToSession (item) {
+                let key = this.$store.state.sessionList.list.length + 50;
+                let tempObj = JSON.parse(JSON.stringify(item));
+                // console.log(tempObj);
+                tempObj.key = key;
+                tempObj.type = 'group';
+                this.$store.commit('clearAll');
+                this.$store.commit('jumpToSession', {
+                    type: 'selectedGroup',
+                    value: tempObj,
+                    selectedGroupKey: key
+                });
+                this.$store.commit('updateGlobalState', {
+                    key: 'currentIndex',
+                    value: 0
+                });
+                this.$store.commit('unshiftListItem', {
+                    item: tempObj
+                });
+                this.$router.push('/index/session');
             }
         }
     };

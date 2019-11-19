@@ -37,7 +37,8 @@
                             <li
                                     v-for="(item, index) in groupList[selectedGroupIndex].children"
                                     :key="`child${index}`"
-                                    @click="selectUser(item)">
+                                    @click="selectUser(item)"
+                                    @dblclick="jumpToSession(item)">
                                 <img src="../../assets/temp.jpg" alt="">
                                 <div class="span">
                                     <span>
@@ -56,6 +57,7 @@
 </template>
 
 <script>
+    import { testMessage } from '../../config/list.config';
     export default {
         name: 'FriendsListPanel',
         data: function () {
@@ -91,11 +93,35 @@
                 this.selectedGroupIndex = index === this.selectedGroupIndex ? -1 : index;
             },
             selectUser (index) {
-                console.log(index);
                 this.$store.commit('updateGlobalState', {
                     key: 'selectedUser',
                     value: index
                 });
+            },
+            jumpToSession (item) {
+                let key = this.$store.state.sessionList.list.length + 50;
+                let tempObj = JSON.parse(JSON.stringify(item));
+                console.log(tempObj);
+                tempObj.key = key;
+                tempObj.type = 'person';
+                this.$store.commit('clearAll');
+                this.$store.commit('jumpToSession', {
+                    type: 'selectedFriend',
+                    value: tempObj,
+                    selectedGroupKey: key
+                });
+                this.$store.commit('updateGlobalState', {
+                    key: 'currentIndex',
+                    value: 0
+                });
+                this.$store.commit('unshiftListItem', {
+                    item: tempObj
+                });
+                this.$store.commit('updateGlobalState', {
+                    key: 'messageList',
+                    value: testMessage
+                });
+                this.$router.push('/index/session');
             }
         }
     };

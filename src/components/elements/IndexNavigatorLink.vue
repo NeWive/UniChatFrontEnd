@@ -4,7 +4,7 @@
             <li
                     v-for="(item, index) in indexNavigatorList"
                     :key="item.key"
-                    :class="click === index ? 'here' : ''"
+                    :class="currentIndex === index ? 'here' : ''"
                     @click="() => {clickHandler(index);}"
                     >
                 <router-link :to="item.to">
@@ -24,13 +24,27 @@
         name: 'IndexNavigatorLink',
         data: function () {
             return {
-                indexNavigatorList,
-                click: 0
+                indexNavigatorList
             };
         },
         methods: {
             clickHandler (index) {
-                this.click = index;
+                console.log(index);
+                this.currentIndex = index;
+            }
+        },
+        computed: {
+            currentIndex: {
+                get () {
+                    return this.$store.state.currentIndex;
+                },
+                set (value) {
+                    console.log(value);
+                    return this.$store.commit('updateGlobalState', {
+                        key: 'currentIndex',
+                        value: value
+                    });
+                }
             }
         }
     };
