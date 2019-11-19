@@ -73,7 +73,8 @@
         float: right;
         height: 100%;
         position: relative;
-        z-index: 1;
+        z-index: 99;
+        background: #FFFFFF;
         opacity: 0;
         width: 0;
         transition: all 0.5s ease;

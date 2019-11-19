@@ -2,10 +2,10 @@
     <div id="emoji_panel">
         <div
                 class="emoji_list"
-                @click.stop="() => {}">
+                >
             <div
                     class="emoji_container"
-                    @click.stop="() => {}">
+                    >
                 <div
                         class="emoji"
                         v-for="(item, index) in emojiList[key]"

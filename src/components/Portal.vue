@@ -1,7 +1,8 @@
 <template>
     <div id="portal">
-        <div id="portal_layer">
-
+        <div
+                id="portal_layer"
+                @click="closePortal">
         </div>
         <PortalElement/>
     </div>
@@ -13,6 +14,17 @@
         name: 'Portal',
         components: {
             PortalElement
+        },
+        methods: {
+            closePortal () {
+                if (this.$store.state.isConfirmWindowOn) {
+                    this.$store.state.cancelHandler();
+                }
+                this.$store.commit('handlePortal', {
+                    isPortalOn: false,
+                    portalElement: {}
+                });
+            }
         }
     };
 </script>
