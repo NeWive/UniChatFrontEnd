@@ -67,7 +67,7 @@
                 this.$store.commit('spliceListItem', {
                     index: index
                 });
-                this.$store.commit('clearGroup');
+                this.$store.commit('clearAll');
             }
         },
         computed: {

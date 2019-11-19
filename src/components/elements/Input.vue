@@ -1,7 +1,7 @@
 <template>
     <div class="input_container" :class="status">
         <div class="input_sel" :class="!hasImg ? 'hasImg' : ' '">
-            <div class="img">
+            <div class="img" v-if="logo">
                 <img :src="logo" alt="">
             </div>
             <input
@@ -51,7 +51,7 @@
             },
             logo: {
                 type: String,
-                required: true
+                default: ''
             },
             storeName: {
                 type: String,

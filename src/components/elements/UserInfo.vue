@@ -43,10 +43,10 @@
                 this.isInputShown = !this.isInputShown;
             },
             openPortal () {
-                console.log(this.$store.state.userInfo);
                 this.$store.commit('handlePortal', {
                     isPortalOn: true,
-                    portalElement: this.$store.state.userInfo
+                    portalElement: this.$store.state.userInfo,
+                    allowEdit: true
                 });
             }
         },

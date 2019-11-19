@@ -17,7 +17,9 @@
                 <template v-for="(item, index) in messageList">
                     <transition :key="index" mode="out-in" name="fade">
                         <li :class="item.id === user.id ? 'self' : 'other'">
-                            <div class="head">
+                            <div
+                                    class="head"
+                                    @click="openPortal(item, item.id === user.id)">
                                 <img alt="" src="../../assets/temp.jpg">
                             </div>
                             <div class="message">
@@ -124,6 +126,13 @@
                     key: 'isMessageLogOn',
                     isMessageLogOn: !this.$store.state.isMessageLogOn,
                     width: !this.$store.state.isMessageLogOn ? (this.selectedType === 'group' ? 360 : 500) : 0
+                });
+            },
+            openPortal (target, allowEdit) {
+                this.$store.commit('handlePortal', {
+                    isPortalOn: true,
+                    portalElement: target,
+                    allowEdit
                 });
             }
         }

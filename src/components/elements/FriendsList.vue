@@ -7,6 +7,14 @@
                 <GroupListPanel v-else/>
             </transition>
         </div>
+        <div class="add_modules">
+            <div class="add_friend">
+                <img src="../../assets/add_friend.png" alt="">
+            </div>
+            <div class="create_group">
+                <img src="../../assets/create_group.png" alt="">
+            </div>
+        </div>
     </div>
 </template>
 
@@ -50,6 +58,18 @@
             .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
                 opacity: 0;
                 transform: scale(0);
+            }
+        }
+        .add_modules {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 7.5px 0 0;
+            .add_friend {
+                margin-right: 63px;
+            }
+            .add_friend, .create_group {
+                cursor: pointer;
             }
         }
     }

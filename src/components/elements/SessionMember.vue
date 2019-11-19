@@ -11,7 +11,7 @@
                 <li
                         v-for="item in memberList"
                         :key="item.key">
-                    <a href="" @click.prevent="() => {}">
+                    <a href="" @click.prevent="openPortal(item)">
                         <div class="img">
                             <img src="../../assets/temp.jpg" alt="">
                             <AuthorityLogo v-if="item.authority === 1"  background="#F4EA2A"/>
@@ -49,7 +49,13 @@
             };
         },
         methods: {
-
+            openPortal (target) {
+                this.$store.commit('handlePortal', {
+                    isPortalOn: true,
+                    portalElement: target,
+                    allowEdit: false
+                });
+            }
         }
     };
 </script>

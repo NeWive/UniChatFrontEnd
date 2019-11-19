@@ -1022,8 +1022,14 @@ const store = {
         selectedUser: '',
         isMessageLogOn: false,
         messageLogWidth: 0,
-        isPortalOn: true,
-        portalElement: {}
+        isPortalOn: false, // 弹出层控制
+        portalElement: {}, // 弹出层内容
+        isChangingInfo: false, // 是否进入修改个人信息
+        allowEdit: false, // 是否允许修改信息
+        isConfirmWindowOn: false, // 自定义确认窗口是否打开
+        confirmHandler: null, // 自定义确认窗口确认函数
+        cancelHandler: null, // 自定义确认窗口取消函数
+        confirmWindowMessage: '' // 自定义确认窗口提示消息
     },
     mutations: {
         updateGlobalState (state, payload) {
@@ -1052,6 +1058,13 @@ const store = {
         handlePortal (state, payload) {
             state.isPortalOn = payload.isPortalOn;
             state.portalElement = payload.portalElement;
+            state.allowEdit = payload.allowEdit;
+        },
+        handleConfirmWindow (state, payload) {
+            state.confirmHandler = payload.confirmHandler;
+            state.cancelHandler = payload.cancelHandler;
+            state.confirmWindowMessage = payload.confirmWindowMessage;
+            state.isConfirmWindowOn = payload.isConfirmWindowOn;
         }
     },
     actions: {},
@@ -2031,6 +2044,31 @@ const store = {
         },
         registerFormStatus: {
             // 0 初始状态，focus，wrong，right,fetched
+            state: {
+                username: 'init',
+                password: 'init',
+                verifyCode: 'init',
+                email: 'init'
+            },
+            mutations: {
+                updateFormStatus (state, payload) {
+                    state[payload.key] = payload.value;
+                }
+            },
+        },
+        editUserInfoForm: {
+            state: {
+                username: '',
+                email: '',
+                desc: ''
+            },
+            mutations: {
+                updateForm (state, payload) {
+                    state[payload.key] = payload.value;
+                }
+            },
+        },
+        editUserInfoFormStatus: {
             state: {
                 username: 'init',
                 password: 'init',

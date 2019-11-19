@@ -2,17 +2,22 @@
     <div id="portal_element">
         <WindowControl :close-handler="closePortal" :has-minimal="false"/>
         <UserInfoPanel/>
+        <transition name="fade">
+            <ConfirmWindow v-if="isConfirmWindowOn"/>
+        </transition>
     </div>
 </template>
 
 <script>
     import WindowControl from './WindowControl';
     import UserInfoPanel from './UserInfoPanel';
+    import ConfirmWindow from './ConfirmWindow';
     export default {
         name: 'PortalElement',
         components: {
             WindowControl,
-            UserInfoPanel
+            UserInfoPanel,
+            ConfirmWindow
         },
         methods: {
             closePortal () {
@@ -20,6 +25,13 @@
                     isPortalOn: false,
                     portalElement: {}
                 });
+            }
+        },
+        computed: {
+            isConfirmWindowOn: {
+                get () {
+                    return this.$store.state.isConfirmWindowOn;
+                }
             }
         }
     };
