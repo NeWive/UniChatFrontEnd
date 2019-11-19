@@ -1,6 +1,7 @@
 <template>
     <div
-         id="session_message">
+         id="session_message"
+        @click.stop="handleEmojiPanel(false)">
         <div class="name_panel">
             <transition name="fade">
                 <p :style="selectedType === 'person' ? {
@@ -35,9 +36,14 @@
             </ul>
         </div>
         <div class="post_panel">
+            <transition name="fade">
+                <EmojiPanel
+                        v-if="isEmojiPanelOpen"
+                        :handle-content="setChatMessage"/>
+            </transition>
             <div class="module_panel">
                 <div class="img_panel">
-                    <a @click.prevent="() => {}" href="">
+                    <a @click.prevent.stop="handleEmojiPanel(!isEmojiPanelOpen)" href="">
                         <img alt="" src="../../assets/emoji.png">
                     </a>
                     <a @click.prevent="() => {}" href="">
@@ -71,12 +77,16 @@
 </template>
 
 <script>
+    import EmojiPanel from './EmojiPanel';
     export default {
         name: 'SessionMessage',
         mounted () {
             // let target = document.getElementById('scroll_message_panel');
             // target.scrollTop = target.scrollHeight;
             this.scrollToBottom();
+        },
+        components: {
+            EmojiPanel
         },
         computed: {
             channelInfo: {
@@ -122,10 +132,17 @@
                 windowHeight: 435,
                 isScrolling: false,
                 timer: null,
-                chatMessage: ''
+                chatMessage: '',
+                isEmojiPanelOpen: false
             };
         },
         methods: {
+            handleEmojiPanel (value) {
+                  this.isEmojiPanelOpen = value;
+            },
+            setChatMessage (value) {
+                  this.chatMessage += value;
+            },
             scrollToBottom () {
                 let target = document.getElementById('scroll_message_panel');
                 target.scrollTo({
@@ -307,6 +324,12 @@
         }
 
         .post_panel {
+            position: relative;
+            #emoji_panel {
+                position: absolute;
+                left: 245px;
+                top: -300px;
+            }
             .module_panel {
                 padding: 6px 27px 4px 18px;
                 display: flex;
