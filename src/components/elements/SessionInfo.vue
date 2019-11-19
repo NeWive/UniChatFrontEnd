@@ -24,5 +24,8 @@
         height: 100%;
         box-sizing: border-box;
         width: 242px;
+        position: relative;
+        z-index: 6;
+        background: #FFFFFF;
     }
 </style>

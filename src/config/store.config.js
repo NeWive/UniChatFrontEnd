@@ -1021,7 +1021,9 @@ const store = {
         ],
         selectedUser: '',
         isMessageLogOn: false,
-        messageLogWidth: 0
+        messageLogWidth: 0,
+        isPortalOn: true,
+        portalElement: {}
     },
     mutations: {
         updateGlobalState (state, payload) {
@@ -1046,6 +1048,10 @@ const store = {
         handleMessageLog (state, payload) {
             state.isMessageLogOn = payload.isMessageLogOn;
             state.messageLogWidth = payload.width;
+        },
+        handlePortal (state, payload) {
+            state.isPortalOn = payload.isPortalOn;
+            state.portalElement = payload.portalElement;
         }
     },
     actions: {},

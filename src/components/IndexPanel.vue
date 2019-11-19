@@ -2,17 +2,29 @@
     <div id="index_panel">
         <IndexNavigator/>
         <SessionIndexPanel/>
+        <transition name="fade" mode="out-in">
+            <Portal v-if="isPortalOn"/>
+        </transition>
     </div>
 </template>
 
 <script>
     import SessionIndexPanel from './IndexMainPanel';
     import IndexNavigator from './elements/IndexNavigator';
+    import Portal from './Portal';
     export default {
         name: 'IndexPanel',
         components: {
             IndexNavigator,
-            SessionIndexPanel
+            SessionIndexPanel,
+            Portal
+        },
+        computed: {
+            isPortalOn: {
+                get () {
+                    return this.$store.state.isPortalOn;
+                }
+            }
         }
     };
 </script>
@@ -21,5 +33,6 @@
     #index_panel {
         width: 1200px;
         height: 700px;
+        position: relative;
     }
 </style>

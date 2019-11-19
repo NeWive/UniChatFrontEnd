@@ -145,8 +145,8 @@
             padding: 16px 0 11px 19px;
             box-sizing: border-box;
             position: relative;
-            z-index: 5;
-            background-color: #FFFFFF;
+            z-index: 1;
+            /*background-color: #FFFFFF;*/
             .fade-enter-active, .fade-leave-active {
                 transition: opacity .5s;
             }
@@ -160,6 +160,7 @@
                 @include overFlowOneLine;
                 @include fontMixin(21px, FZQKBYSJW--GB1-0, bold, 21px);
                 letter-spacing: 3px;
+                padding-left: 10px;
             }
         }
 

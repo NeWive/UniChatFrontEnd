@@ -1,6 +1,6 @@
 <template>
     <div id="main_panel">
-        <WindowControl/>
+        <WindowControl :close-handler="closeWindow" :minimal-handler="minimalWindow"/>
         <div class="title">
             <img src="../assets/title.png" alt="">
         </div>
@@ -18,7 +18,15 @@
         name: 'MainPanel',
         components: {
             WindowControl
-        }
+        },
+        methods: {
+            closeWindow: function () {
+                alert('close');
+            },
+            minimalWindow: function () {
+                alert('minimal');
+            }
+        },
     };
 </script>
 

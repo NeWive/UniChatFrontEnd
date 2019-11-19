@@ -1,7 +1,7 @@
 <template>
     <div id="window_control">
-        <WindowControlButton type="close" :click-handler="closeWindow"/>
-        <WindowControlButton type="minimal" :click-handler="minimalWindow"/>
+        <WindowControlButton type="close" :click-handler="closeHandler"/>
+        <WindowControlButton type="minimal" :click-handler="minimalHandler" v-if="hasMinimal"/>
     </div>
 </template>
 
@@ -12,12 +12,17 @@
         components: {
             WindowControlButton
         },
-        methods: {
-            closeWindow: function () {
-                alert('close');
+        props: {
+            closeHandler: {
+                type: Function,
+                required: true
             },
-            minimalWindow: function () {
-                alert('minimal');
+            minimalHandler: {
+                type: Function
+            },
+            hasMinimal: {
+                type: Boolean,
+                default: true
             }
         }
     };

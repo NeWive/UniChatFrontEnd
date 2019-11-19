@@ -1,6 +1,6 @@
 <template>
     <div class="user_info">
-        <div class="left">
+        <div class="left" @click="openPortal">
             <img src="../../assets/temp.jpg" alt="">
         </div>
         <div class="right">
@@ -41,6 +41,13 @@
         methods: {
             setInputVisible: function () {
                 this.isInputShown = !this.isInputShown;
+            },
+            openPortal () {
+                console.log(this.$store.state.userInfo);
+                this.$store.commit('handlePortal', {
+                    isPortalOn: true,
+                    portalElement: this.$store.state.userInfo
+                });
             }
         },
         computed: {
@@ -74,6 +81,7 @@
                 width: 100%;
                 height: 100%;
                 border-radius: 100%;
+                cursor: pointer;
             }
         }
         .right {

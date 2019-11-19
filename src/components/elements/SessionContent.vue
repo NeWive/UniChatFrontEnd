@@ -56,12 +56,10 @@
         .expand-enter {
             transform: translateX(-243px);
             opacity: 0;
-            z-index: -1;
         }
         .expand-enter-to {
             transform: translate(0);
             opacity: 1;
-            z-index: -1;
         }
         .expand-enter-active {
             transition: transform 0.5s ease, opacity 0.5s ease-in;
