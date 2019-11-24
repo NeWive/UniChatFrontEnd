@@ -1816,14 +1816,15 @@ const store = {
         isMessageLogOn: false,
         messageLogWidth: 0,
         isPortalOn: false, // 弹出层控制
-        portalElement: {}, // 弹出层内容
+        portalElement: {}, // 弹出层内容(好友内容)
         isChangingInfo: false, // 是否进入修改个人信息
         allowEdit: false, // 是否允许修改信息
         isConfirmWindowOn: false, // 自定义确认窗口是否打开
         confirmHandler: null, // 自定义确认窗口确认函数
         cancelHandler: null, // 自定义确认窗口取消函数
         confirmWindowMessage: '', // 自定义确认窗口提示消息
-        currentIndex: 0 // 当前主界面的位置
+        currentIndex: 0, // 当前主界面的位置
+        portalPanelId: -1, // 对应弹出层的ID，查看好友信息为0
     },
     mutations: {
         updateGlobalState (state, payload) {
@@ -1872,6 +1873,14 @@ const store = {
     },
     actions: {},
     modules: {
+        portal: {
+            state: [
+
+            ],
+            mutations: {
+
+            }
+        },
         sessionList: {
             state: {
                 list: [
