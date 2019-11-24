@@ -6,7 +6,8 @@
         </div>
         <PortalElement v-if="portalId === 0"/>
         <CreateGroup v-else-if="portalId === 1"/>
-        <AddPortal v-else-if="2"/>
+        <AddPortal v-else-if="portalId === 2"/>
+        <CreateWindow v-else-if="portalId === 3"/>
     </div>
 </template>
 
@@ -14,12 +15,14 @@
     import CreateGroup from './elements/CreateGroup';
     import PortalElement from './elements/PortalElement';
     import AddPortal from './elements/AddPortal';
+    import CreateWindow from './elements/CreateWindow';
     export default {
         name: 'Portal',
         components: {
             PortalElement,
             CreateGroup,
-            AddPortal
+            AddPortal,
+            CreateWindow
         },
         methods: {
             closePortal () {

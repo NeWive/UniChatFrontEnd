@@ -39,7 +39,8 @@
             <transition name="fade">
                 <EmojiPanel
                         v-if="isEmojiPanelOpen"
-                        :handle-content="setChatMessage"/>
+                        :handle-content="setChatMessage"
+                        />
             </transition>
             <div class="module_panel">
                 <div class="img_panel">

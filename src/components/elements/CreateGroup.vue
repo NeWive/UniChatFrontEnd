@@ -74,6 +74,11 @@
                 </div>
             </div>
             <div class="right">
+                <div class="input">
+                    <input
+                            type="text"
+                            placeholder="请输入群聊名称..">
+                </div>
                 <div class="title">
                     已选择
                 </div>
@@ -259,6 +264,16 @@
                 margin-left: 16px;
                 height: 289px;
                 width: 305px;
+                .input {
+                    input {
+                        width: 100%;
+                        border: 0;
+                        border-bottom: 1px solid #5C555C;
+                        background: transparent;
+                        padding-left: 3px;
+                        padding-bottom: 3px;
+                    }
+                }
                 .title {
                     @include fontMixin(17px, Microsfot YaHei, normal, 17px);
                     padding: 5px 0 4px 10px;

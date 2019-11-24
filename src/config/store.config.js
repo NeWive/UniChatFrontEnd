@@ -1848,6 +1848,17 @@ const store = {
         jumpToSession (state, payload) {
             state[payload.type] = payload.value;
             state.selectedGroupKey = payload.selectedGroupKey;
+        },
+        addFriend (state, payload) {
+            state.friendsList[0].children.push(payload.friend);
+        },
+        addChannel (state, payload) {
+            let index = state.sessionList.list.indexOf(state.selectedGroup);
+            let id = new Date().getTime();
+            state.sessionList.list[index].channel.push({
+                name: payload.channelName,
+                id: id
+            });
         }
     },
     actions: {},
@@ -1883,7 +1894,7 @@ const store = {
                 },
                 updateStatus (state, payload) {
                     state[payload.key] = payload.value;
-                },
+                }
             },
         },
         sessionList: {

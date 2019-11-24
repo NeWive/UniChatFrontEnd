@@ -1,5 +1,7 @@
 <template>
-    <div id="emoji_panel">
+    <div
+            id="emoji_panel"
+            :style="selectedType === 'group' ? {left: '490px'} : {}">
         <div
                 class="emoji_list"
                 >
@@ -55,7 +57,12 @@
                     }
                     return arr;
                 }
-            }
+            },
+            selectedType: {
+                get () {
+                    return this.$store.state.selectedGroup.type || this.$store.state.selectedFriend.type;
+                }
+            },
         },
         methods: {
             setKey (key) {
@@ -82,6 +89,7 @@
         /*height: 270px;*/
         background: #FFFFFF;
         border: 1px solid #D9DDE3;
+        z-index: 99;
         .emoji_list {
             height: 220px;
             overflow-y: scroll;

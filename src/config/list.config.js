@@ -11,6 +11,19 @@ import friend from '../assets/friends.png';
 import friendsList from '../assets/friendsPanel.png';
 import groupList from '../assets/groupsList.png';
 
+export const addPanelNavList = [
+    {
+        name: '添加好友',
+        placeholder: '请输入ID',
+        key: 'add_friend'
+    },
+    {
+        name: '添加群聊',
+        placeholder: '请输入群名/群号',
+        key: 'add_group'
+    }
+];
+
 export const logInList = [
     {
         placeholder: 'username',

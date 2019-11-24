@@ -24,7 +24,7 @@
                         </transition>
                     </template>
                     <li>
-                        <a @click.prevent="() => {}">
+                        <a @click.prevent="handleWindow">
                             <img src="../../assets/add.png" alt="">
                             <span class="channel_name">
                                 添加频道
@@ -59,11 +59,6 @@
                 }
             }
         },
-        data: function () {
-            return {
-
-            };
-        },
         methods: {
             clickHandler (id, index) {
                 this.selectedChannelId = id;
@@ -74,6 +69,12 @@
                 this.$store.commit('updateGlobalState', {
                     key: 'messageList',
                     value: testMessage
+                });
+            },
+            handleWindow () {
+                this.$store.commit('handlePortal', {
+                    isPortalOn: true,
+                    id: 3
                 });
             }
         }
