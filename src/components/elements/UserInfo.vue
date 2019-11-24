@@ -55,7 +55,8 @@
                 this.$store.commit('handlePortal', {
                     isPortalOn: true,
                     portalElement: this.$store.state.userInfo,
-                    allowEdit: true
+                    allowEdit: true,
+                    id: 0,
                 });
             }
         },

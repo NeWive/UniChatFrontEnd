@@ -35,7 +35,7 @@
         .window_control_button {
             margin-right: 19px;
             &:first-child {
-                margin-right: 0;
+                margin-right: 5px;
             }
         }
     }

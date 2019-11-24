@@ -104,10 +104,10 @@
             },
             isChangingInfo: {
                 get () {
-                    return this.$store.state.isChangingInfo;
+                    return this.$store.state.portal.isChangingInfo;
                 },
                 set (value) {
-                    this.$store.commit('updateGlobalState', {
+                    this.$store.commit('updateStatus', {
                         key: 'isChangingInfo',
                         value: value
                     });
@@ -115,12 +115,13 @@
             },
             allowEdit: {
                 get () {
-                    return this.$store.state.allowEdit;
+                    return this.$store.state.portal.allowEdit;
                 }
             }
         },
         methods: {
             openEditForm () {
+                console.log(this.isChangingInfo);
                 if (this.isChangingInfo) {
                     // if (confirm('确定提交吗')) {
                     //     this.isChangingInfo = false;

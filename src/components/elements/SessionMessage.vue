@@ -161,7 +161,8 @@
                 this.$store.commit('handlePortal', {
                     isPortalOn: true,
                     portalElement: target,
-                    allowEdit
+                    allowEdit,
+                    id: 0
                 });
             },
             postMessage () {

@@ -53,7 +53,8 @@
                 this.$store.commit('handlePortal', {
                     isPortalOn: true,
                     portalElement: target,
-                    allowEdit: false
+                    allowEdit: false,
+                    id: 0,
                 });
             }
         }

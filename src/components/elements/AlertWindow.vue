@@ -1,7 +1,9 @@
 <template>
-    <div id="confirm_window">
-        <div class="confirm_window_layer"></div>
-        <div class="confirm_window_container">
+    <div id="alert_window">
+        <div
+                class="alert_window_layer"
+                @click="cancelHandler"></div>
+        <div class="alert_window_container">
             <div class="top_panel">
                 <WindowControl :close-handler="cancelHandler" :has-minimal="false"/>
             </div>
@@ -16,11 +18,6 @@
                         @click="confirmHandler">
                     确定
                 </div>
-                <div
-                        id="cancel_button"
-                        @click="cancelHandler">
-                    取消
-                </div>
             </div>
         </div>
     </div>
@@ -29,44 +26,42 @@
 <script>
     import WindowControl from './WindowControl';
     export default {
-        name: 'ConfirmWindow',
+        name: 'AlertWindow',
         components: {
             WindowControl
         },
-        computed: {
-            confirmHandler: {
-                get () {
-                    return this.$store.state.portal.confirmHandler;
-                }
-            },
+        props: {
             cancelHandler: {
-                get () {
-                    return this.$store.state.portal.cancelHandler;
-                }
+                required: true,
+                type: Function
+            },
+            confirmHandler: {
+                required: true,
+                type: Function
             },
             message: {
-                get () {
-                    return this.$store.state.portal.confirmWindowMessage;
-                }
+                type: String,
+                required: true
             }
         }
     };
 </script>
 
 <style lang="scss">
-    #confirm_window {
+    #alert_window {
         position: absolute;
         width: 100%;
         height: 100%;
         top: 0;
-        .confirm_window_layer {
+        left: 0;
+        .alert_window_layer {
             position: absolute;
             width: 100%;
             height: 100%;
             background: #000000;
             opacity: 0.4;
         }
-        .confirm_window_container {
+        .alert_window_container {
             position: absolute;
             left: 0;
             right: 0;
@@ -97,9 +92,6 @@
                     color: #FFFFFF;
                     text-align: center;
                     padding: 6px 0;
-                }
-                #confirm_button {
-                    margin-right: 10px;
                 }
             }
         }

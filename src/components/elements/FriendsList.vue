@@ -8,10 +8,14 @@
             </transition>
         </div>
         <div class="add_modules">
-            <div class="add_friend">
+            <div
+                    class="add_friend"
+                    @click="openPortal(2)">
                 <img src="../../assets/add_friend.png" alt="">
             </div>
-            <div class="create_group">
+            <div
+                    class="create_group"
+                    @click="openPortal(1)">
                 <img src="../../assets/create_group.png" alt="">
             </div>
         </div>
@@ -34,6 +38,15 @@
                 get () {
                     return this.$store.state.currentFriendsListStatus;
                 }
+            }
+        },
+        methods: {
+            openPortal (id) {
+                console.log(id);
+                this.$store.commit('handlePortal', {
+                    isPortalOn: true,
+                    id: id
+                });
             }
         }
     };

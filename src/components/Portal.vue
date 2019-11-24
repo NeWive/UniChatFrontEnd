@@ -2,28 +2,42 @@
     <div id="portal">
         <div
                 id="portal_layer"
-                @click="closePortal">
+                >
         </div>
-        <PortalElement/>
+        <PortalElement v-if="portalId === 0"/>
+        <CreateGroup v-else-if="portalId === 1"/>
+        <AddPortal v-else-if="2"/>
     </div>
 </template>
 
 <script>
+    import CreateGroup from './elements/CreateGroup';
     import PortalElement from './elements/PortalElement';
+    import AddPortal from './elements/AddPortal';
     export default {
         name: 'Portal',
         components: {
-            PortalElement
+            PortalElement,
+            CreateGroup,
+            AddPortal
         },
         methods: {
             closePortal () {
-                if (this.$store.state.isConfirmWindowOn) {
-                    this.$store.state.cancelHandler();
+                if (this.$store.state.portal.isConfirmWindowOn) {
+                    this.$store.state.portal.cancelHandler();
                 }
                 this.$store.commit('handlePortal', {
                     isPortalOn: false,
-                    portalElement: {}
+                    portalElement: {},
+                    id: -1,
                 });
+            }
+        },
+        computed: {
+            portalId: {
+                get () {
+                    return this.$store.state.portal.id;
+                }
             }
         }
     };

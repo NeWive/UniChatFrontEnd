@@ -1815,16 +1815,7 @@ const store = {
         selectedUser: '',
         isMessageLogOn: false,
         messageLogWidth: 0,
-        isPortalOn: false, // 弹出层控制
-        portalElement: {}, // 弹出层内容(好友内容)
-        isChangingInfo: false, // 是否进入修改个人信息
-        allowEdit: false, // 是否允许修改信息
-        isConfirmWindowOn: false, // 自定义确认窗口是否打开
-        confirmHandler: null, // 自定义确认窗口确认函数
-        cancelHandler: null, // 自定义确认窗口取消函数
-        confirmWindowMessage: '', // 自定义确认窗口提示消息
-        currentIndex: 0, // 当前主界面的位置
-        portalPanelId: -1, // 对应弹出层的ID，查看好友信息为0
+        currentIndex: 0, // Index 页面顶部导航栏
     },
     mutations: {
         updateGlobalState (state, payload) {
@@ -1838,9 +1829,8 @@ const store = {
             };
             state.messageList.push(message);
         },
-        clearGroup (state) {
-            state.selectedGroupKey = -1;
-            state.selectedGroup = {};
+        addGroup (state, payload) {
+            state.groupsList.push(payload.group);
         },
         clearAll (state) {
             state.selectedChannelId = -1;
@@ -1855,17 +1845,6 @@ const store = {
             state.isMessageLogOn = payload.isMessageLogOn;
             state.messageLogWidth = payload.width;
         },
-        handlePortal (state, payload) {
-            state.isPortalOn = payload.isPortalOn;
-            state.portalElement = payload.portalElement;
-            state.allowEdit = payload.allowEdit;
-        },
-        handleConfirmWindow (state, payload) {
-            state.confirmHandler = payload.confirmHandler;
-            state.cancelHandler = payload.cancelHandler;
-            state.confirmWindowMessage = payload.confirmWindowMessage;
-            state.isConfirmWindowOn = payload.isConfirmWindowOn;
-        },
         jumpToSession (state, payload) {
             state[payload.type] = payload.value;
             state.selectedGroupKey = payload.selectedGroupKey;
@@ -1874,12 +1853,38 @@ const store = {
     actions: {},
     modules: {
         portal: {
-            state: [
-
-            ],
+            state: {
+                isPortalOn: false, // 弹出层控制
+                portalElement: {}, // 弹出层内容(好友内容)
+                isChangingInfo: false, // 是否进入修改个人信息
+                allowEdit: false, // 是否允许修改信息
+                isConfirmWindowOn: false, // 自定义确认窗口是否打开
+                confirmHandler: null, // 自定义确认窗口确认函数
+                cancelHandler: null, // 自定义确认窗口取消函数
+                confirmWindowMessage: '', // 自定义确认窗口提示消息
+                currentIndex: 0, // 当前主界面的位置
+                portalPanelId: -1, // 对应弹出层的ID，查看好友信息为0,
+                selectedFriends: [], // 选中的好友
+            },
             mutations: {
-
-            }
+                handlePortal (state, payload) {
+                    state.isPortalOn = payload.isPortalOn;
+                    state.id = payload.id;
+                    if (payload.id === 0) {
+                        state.portalElement = payload.portalElement;
+                        state.allowEdit = payload.allowEdit;
+                    }
+                },
+                handleConfirmWindow (state, payload) {
+                    state.confirmHandler = payload.confirmHandler;
+                    state.cancelHandler = payload.cancelHandler;
+                    state.confirmWindowMessage = payload.confirmWindowMessage;
+                    state.isConfirmWindowOn = payload.isConfirmWindowOn;
+                },
+                updateStatus (state, payload) {
+                    state[payload.key] = payload.value;
+                },
+            },
         },
         sessionList: {
             state: {

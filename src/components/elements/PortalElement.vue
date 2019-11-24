@@ -23,14 +23,15 @@
             closePortal () {
                 this.$store.commit('handlePortal', {
                     isPortalOn: false,
-                    portalElement: {}
+                    portalElement: {},
+                    id: -1,
                 });
             }
         },
         computed: {
             isConfirmWindowOn: {
                 get () {
-                    return this.$store.state.isConfirmWindowOn;
+                    return this.$store.state.portal.isConfirmWindowOn;
                 }
             }
         }

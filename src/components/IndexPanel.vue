@@ -22,7 +22,7 @@
         computed: {
             isPortalOn: {
                 get () {
-                    return this.$store.state.isPortalOn;
+                    return this.$store.state.portal.isPortalOn;
                 }
             }
         }
