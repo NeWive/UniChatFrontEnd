@@ -1,6 +1,6 @@
 export const validateRuleList = {
-    username: /^[A-Za-z0-9]{2,10}$/,
-    password: /^[A-Za-z0-9`~!@#$^&*()=|{}':;',.<>/?~\\[\]+-^]{1,20}$/,
-    email: /^\w+@+[0-9a-zA-Z]+\.(com|com.cn|edu.cn|edu|hk|cn|net)$/,
+    username: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{2,10}$/,
+    password: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{1,20}$/,
+    email: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
     verifyCode: /^[A-Za-z0-9]{4}&/,
 };
