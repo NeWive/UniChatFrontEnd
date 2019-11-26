@@ -75,6 +75,7 @@
             </div>
             <div class="right">
                 <div class="input">
+                    <img src="../../assets/default_portrait.png" alt="">
                     <input
                             type="text"
                             placeholder="请输入群聊名称.."
@@ -243,10 +244,14 @@
             }
             .button {
                 cursor: pointer;
-                padding: 6px 16px 5px 14px;
+                padding: 6px 0 5px;
                 background: #17BEBB;
                 color: #FFFFFF;
                 border-radius: 10px;
+                width: 60px;
+                display: flex;
+                justify-content: center;
+                align-content: center;
             }
         }
         .select_user_list_panel {
@@ -268,8 +273,16 @@
                 height: 289px;
                 width: 305px;
                 .input {
+                    input, img {
+                        vertical-align: middle;
+                        display: inline-block;
+                    }
+                    img {
+                        margin-right: 10px;
+                        cursor: pointer;
+                    }
                     input {
-                        width: 100%;
+                        width: 70%;
                         border: 0;
                         border-bottom: 1px solid #5C555C;
                         background: transparent;
