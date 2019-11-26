@@ -1861,7 +1861,12 @@ const store = {
             });
         }
     },
-    actions: {},
+    actions: {
+        requestForValidateImg (dom, fn) {
+            console.log(dom);
+            console.log(fn);
+        }
+    },
     modules: {
         portal: {
             state: {

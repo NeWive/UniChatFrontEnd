@@ -25,7 +25,7 @@
                 </div>
                 <div
                         id="cancel_button"
-                        @click="handleWindow(false)">
+                        @click="closeWindow">
                     取消
                 </div>
             </div>

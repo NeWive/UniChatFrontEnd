@@ -77,7 +77,8 @@
                 <div class="input">
                     <input
                             type="text"
-                            placeholder="请输入群聊名称..">
+                            placeholder="请输入群聊名称.."
+                            v-model="groupName">
                 </div>
                 <div class="title">
                     已选择
@@ -166,9 +167,9 @@
                 if (this.selectedFriends.length > 0) {
                     let tempKey = new Date().getTime();
                     let group = {
-                        name: 'default',
+                        name: this.groupName,
                         key: tempKey,
-                        channel: {},
+                        channel: [],
                         members: this.selectedFriends
                     };
                     this.$store.commit('addGroup', {
@@ -205,6 +206,7 @@
                 selectedFriends: [], // 保存引用
                 selectedFriendsKey: [], // 保存key用来判定
                 isAlertWindowOn: false,
+                groupName: '',
             };
         }
     };
@@ -230,6 +232,7 @@
             margin: 27px 0 12px;
         }
         .bottom {
+            margin-top: 20px;
             display: flex;
             flex-direction: row-reverse;
             .confirm {
@@ -240,7 +243,7 @@
             }
             .button {
                 cursor: pointer;
-                padding: 4px 16px 5px 14px;
+                padding: 6px 16px 5px 14px;
                 background: #17BEBB;
                 color: #FFFFFF;
                 border-radius: 10px;
