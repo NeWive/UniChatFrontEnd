@@ -16,6 +16,7 @@
 
 <script>
     import Input from './Input';
+
     export default {
         name: 'Form',
         components: {

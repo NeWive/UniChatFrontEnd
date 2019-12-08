@@ -10,6 +10,7 @@
                     v-model="message"
                     @focus="focusHandler"
                     @blur="blueHandler"
+                    @change="onChangeHandler(property)"
                     />
         </div>
         <template v-if="hasImg">
@@ -25,6 +26,8 @@
 </template>
 
 <script>
+    import { validate } from '../../module/validate';
+
     export default {
         name: 'Input',
         data: function () {
@@ -70,8 +73,10 @@
                 this.status = 'init';
             },
             clickHandler: function () {
-                console.log(this.isFetched);
                 this.isFetched = true;
+            },
+            onChangeHandler: function (key) {
+                console.log(key);
             }
         },
         computed: {

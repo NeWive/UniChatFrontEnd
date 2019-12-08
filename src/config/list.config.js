@@ -24,6 +24,13 @@ export const addPanelNavList = [
     }
 ];
 
+export const mapToChinese = {
+    'username': '用户名',
+    'password': '密码',
+    'verifyCode': '验证码',
+    'email': '邮箱',
+};
+
 export const logInList = [
     {
         placeholder: 'username',
