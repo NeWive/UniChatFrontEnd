@@ -4,7 +4,10 @@
             <FindBackForm
                     :list="findBackPassword"
                     store-name="findBackForm"
-                    store-status-name="registerFormStatus"/>
+                    :store-status="formStatus"
+                    :set-status="setStatus"
+                    mutation="findBackForm"
+            />
         </div>
         <HyperLink :list="forgetInHyperLink"/>
         <div class="button_container">
@@ -26,7 +29,12 @@
         data: function () {
             return {
                 forgetInHyperLink,
-                findBackPassword
+                findBackPassword,
+                formStatus: {
+                    repeat_password: '',
+                    password: '',
+                    email: ''
+                }
             };
         },
         components: {
@@ -37,6 +45,9 @@
         methods: {
             clickHandler: function () {
                 this.isLoading = true;
+            },
+            setStatus: function (key, value) {
+                this.formStatus[key] = value;
             }
         },
         computed: {

@@ -4,7 +4,10 @@
             <RegisterForm
                     :list="registerList"
                     store-name="registerForm"
-                    store-status-name="registerFormStatus"/>
+                    :store-status="formStatus"
+                    mutation="updateRegisterForm"
+                    :set-status="setStatus"
+            />
         </div>
         <HyperLink :list="registerInHyperLink"/>
         <div class="button_container">
@@ -18,15 +21,24 @@
 
 <script>
     import { registerList, registerInHyperLink } from '../config/list.config';
+    import { interfaceGroup } from '../config/url.config';
     import RegisterForm from './elements/Form';
     import HyperLink from './elements/HyperLink';
     import FormButton from './elements/FormButton';
+    import axios from 'axios';
+    import { validateAll } from '../module/validate';
     export default {
         name: 'RegisterPanel',
         data: function () {
             return {
                 registerList,
-                registerInHyperLink
+                registerInHyperLink,
+                formStatus: {
+                    username: 'init',
+                    password: 'init',
+                    verifyCode: 'init',
+                    email: 'init',
+                }
             };
         },
         components: {
@@ -36,8 +48,18 @@
         },
         methods: {
             clickHandler: function () {
-                console.log(213);
-                this.isLoading = true;
+                let { status, msg } = validateAll(this.$store.state.registerForm);
+                if (!status) {
+                    this.$store.commit('handleMainPortal', {
+                        message: msg,
+                        isPortalOn: true
+                    });
+                } else {
+
+                }
+            },
+            setStatus: function (key, value) {
+                this.formStatus[key] = value;
             }
         },
         computed: {

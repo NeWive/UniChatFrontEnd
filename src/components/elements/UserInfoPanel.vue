@@ -48,7 +48,7 @@
                                     :placeholder="this.userInfo.username"
                                     store-name="editUserInfoForm"
                                     store-status-name="editUserInfoFormStatus"
-                                    />
+                            />
                         </div>
                         <div class="name">
                             <span class="label">

@@ -16,7 +16,10 @@
                 <LogInForm
                         :list="logInList"
                         store-name="logInForm"
-                        store-status-name="logInFormStatus"/>
+                        :store-status="formStatus"
+                        mutation="updateLogInForm"
+                        :set-status="setStatus"
+                />
             </div>
             <LogInLink
                     :list="logInHyperLink"/>
@@ -61,13 +64,21 @@
                 setTimeout(function () {
                     ctx.$router.push('/index');
                 }, 1500);
+            },
+            setStatus: function (key, value) {
+                this.formStatus[key] = value;
             }
         },
         data: function () {
             return {
                 logInList,
                 logInMethodList,
-                logInHyperLink
+                logInHyperLink,
+                formStatus: {
+                    username: 'init',
+                    password: 'init',
+                    verifyCode: 'init',
+                }
             };
         },
         computed: {

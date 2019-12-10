@@ -106,7 +106,6 @@ export const logInMethodList = [
 
 export let registerList = logInList.map((i) => (i));
 let element = registerList.pop();
-console.log(registerList);
 registerList.push({
     placeholder: 'Email',
     key: 'email',

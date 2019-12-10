@@ -9,7 +9,9 @@
                 :has-img="item.key === 'verifyCode'"
                 :logo="item.img"
                 :store-name="storeName"
-                :store-status-name="storeStatusName"
+                :status="storeStatus[item.key]"
+                :mutation="mutation"
+                :set-status="setStatus"
         />
     </div>
 </template>
@@ -31,9 +33,17 @@
                 type: String,
                 required: true
             },
-            storeStatusName: {
+            storeStatus: {
+                type: Object,
+                required: true
+            },
+            mutation: {
                 type: String,
                 required: true
+            },
+            setStatus: {
+                type: Function,
+                require: true
             }
         }
     };

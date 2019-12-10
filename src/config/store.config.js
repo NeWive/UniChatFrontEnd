@@ -1868,6 +1868,18 @@ const store = {
         }
     },
     modules: {
+        mainPortal: {
+            state: {
+                message: '',
+                isPortalOn: false,
+            },
+            mutations: {
+                handleMainPortal (state, payload) {
+                    state.message = payload.message;
+                    state.isPortalOn = payload.isPortalOn;
+                }
+            }
+        },
         portal: {
             state: {
                 isPortalOn: false, // 弹出层控制
@@ -2835,38 +2847,42 @@ const store = {
                 verifyCode: '',
             },
             mutations: {
-                updateState (state, payload) {
+                updateLogInForm (state, payload) {
                     state[payload.key] = payload.value;
+                },
+                clearLogInForm (state) {
+                    state = {
+                        username: '',
+                        password: '',
+                        verifyCode: '',
+                    };
                 }
             },
             actions: {}
-        },
-        logInFormStatus: {
-            // 0 初始状态，focus，wrong，right
-            state: {
-                username: 'init',
-                password: 'init',
-                verifyCode: 'init',
-            },
-            mutations: {
-                updateFormStatus (state, payload) {
-                    state[payload.key] = payload.value;
-                }
-            },
         },
         registerForm: {
             state: {
                 username: '',
                 password: '',
+                email: '',
                 verifyCode: '',
-                email: ''
             },
             mutations: {
-                updateForm (state, payload) {
+                updateRegisterForm (state, payload) {
                     state[payload.key] = payload.value;
+                },
+                clearRegisterForm (state) {
+                    state = {
+                        username: '',
+                        password: '',
+                        verifyCode: '',
+                        email: ''
+                    };
                 }
             },
-            actions: {}
+            actions: {
+
+            }
         },
         findBackForm: {
             state: {
@@ -2875,25 +2891,18 @@ const store = {
                 email: ''
             },
             mutations: {
-                updateForm (state, payload) {
+                updateFindBackForm (state, payload) {
                     state[payload.key] = payload.value;
+                },
+                clearFindBackForm (state) {
+                    state = {
+                        repeat_password: '',
+                        password: '',
+                        email: ''
+                    };
                 }
             },
             actions: {}
-        },
-        registerFormStatus: {
-            // 0 初始状态，focus，wrong，right,fetched
-            state: {
-                username: 'init',
-                password: 'init',
-                verifyCode: 'init',
-                email: 'init'
-            },
-            mutations: {
-                updateFormStatus (state, payload) {
-                    state[payload.key] = payload.value;
-                }
-            },
         },
         editUserInfoForm: {
             state: {
@@ -2902,20 +2911,7 @@ const store = {
                 desc: ''
             },
             mutations: {
-                updateForm (state, payload) {
-                    state[payload.key] = payload.value;
-                }
-            },
-        },
-        editUserInfoFormStatus: {
-            state: {
-                username: 'init',
-                password: 'init',
-                verifyCode: 'init',
-                email: 'init'
-            },
-            mutations: {
-                updateFormStatus (state, payload) {
+                updateUserInfoForm (state, payload) {
                     state[payload.key] = payload.value;
                 }
             },

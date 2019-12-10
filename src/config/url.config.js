@@ -1,4 +1,4 @@
-const server = 'http://47.102.140.37:10010/';
+const server = 'http://47.102.140.37:10010';
 
 export const interfaceGroup = {
     signUp: {

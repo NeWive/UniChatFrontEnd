@@ -1,3 +1,4 @@
+<!--suppress JSCheckFunctionSignatures -->
 <template>
     <div class="input_container" :class="status">
         <div class="input_sel" :class="!hasImg ? 'hasImg' : ' '">
@@ -9,30 +10,39 @@
                     :placeholder="placeholder"
                     v-model="message"
                     @focus="focusHandler"
-                    @blur="blueHandler"
-                    @change="onChangeHandler(property)"
-                    />
+            />
+            <transition name="fade">
+                <div class="err_message" v-show="errMessage">
+                    <span>
+                        {{
+                            errMessage
+                        }}
+                    </span>
+                </div>
+            </transition>
         </div>
         <template v-if="hasImg">
-            <div
-                    class="fetch_img"
-                    v-if="!isFetched"
-                    @click="clickHandler">
-                获取验证码
+            <div id="verifyImgContainer" @click="clickHandler">
+                <transition name="fade">
+                    <img :src="url" alt="" class="verifyCodeImg" id="verifyImg">
+                </transition>
             </div>
-            <img v-else src="../../assets/temp.jpg" alt="" class="verifyCodeImg" @click="clickHandler">
         </template>
     </div>
 </template>
 
 <script>
     import { validate } from '../../module/validate';
+    import { requestForImg } from '../../module/requestForImg';
+    import { interfaceGroup } from '../../config/url.config';
 
     export default {
         name: 'Input',
         data: function () {
             return {
-                isFetched: false
+                isFetched: false,
+                errMessage: '',
+                url: interfaceGroup.captcha.url
             };
         },
         props: {
@@ -60,23 +70,26 @@
                 type: String,
                 required: true
             },
-            storeStatusName: {
+            status: {
                 type: String,
+                required: true
+            },
+            mutation: {
+                type: String,
+                required: true
+            },
+            setStatus: {
+                type: Function,
                 required: true
             }
         },
         methods: {
             focusHandler: function () {
-                this.status = 'focus';
+                this.setStatus(this.property, 'focus');
             },
-            blueHandler: function () {
-                this.status = 'init';
-            },
-            clickHandler: function () {
-                this.isFetched = true;
-            },
-            onChangeHandler: function (key) {
-                console.log(key);
+            clickHandler: function (e) {
+                console.log(document.getElementById('verifyImg'));
+                requestForImg(interfaceGroup.captcha.url, 'verifyImg', 'verifyCodeImg', 'verifyImgContainer');
             }
         },
         computed: {
@@ -85,21 +98,13 @@
                     return (this.$store.state[this.storeName])[this.property];
                 },
                 set: function (value) {
-                    this.$store.commit('updateForm', {
+                    this.$store.commit(this.mutation, {
                         key: this.property,
                         value: value
                     });
-                }
-            },
-            status: {
-                get: function () {
-                    return (this.$store.state[this.storeStatusName])[this.property];
-                },
-                set: function (value) {
-                    this.$store.commit('updateFormStatus', {
-                        key: this.property,
-                        value: value
-                    });
+                    let { status, msg } = validate(value, this.property);
+                    this.setStatus(this.property, !status ? 'err' : 'init');
+                    this.errMessage = msg;
                 }
             }
         }
@@ -123,6 +128,15 @@
             align-items: center;
             position: relative;
             transition: border-bottom-color 0.8s ease;
+            .err_message {
+                position: absolute;
+                left: 0;
+                bottom: -20px;
+                span {
+                    font-size: 13px;
+                    color: red;
+                }
+            }
             .img {
                 position: absolute;
                 width: 23px;
@@ -174,6 +188,13 @@
         }
     }
     .init {
-
+        .input_sel {
+            border-bottom-color: #5C555C;
+        }
+    }
+    .err {
+        .input_sel {
+            border-bottom-color: red;
+        }
     }
 </style>
