@@ -6,7 +6,7 @@
                     store-name="findBackForm"
                     :store-status="formStatus"
                     :set-status="setStatus"
-                    mutation="findBackForm"
+                    mutation="updateFindBackForm"
             />
         </div>
         <HyperLink :list="forgetInHyperLink"/>
@@ -23,7 +23,11 @@
     import HyperLink from './elements/HyperLink';
     import FormButton from './elements/FormButton';
     import FindBackForm from './elements/Form';
+    import axios from 'axios';
     import { forgetInHyperLink, findBackPassword } from '../config/list.config';
+    import { interfaceGroup } from '../config/url.config';
+    import { validateAll } from '../module/validate';
+    import { genFindBackArgs } from '../module/genPostArgs';
     export default {
         name: 'ForgetPasswordPanel',
         data: function () {
@@ -31,9 +35,9 @@
                 forgetInHyperLink,
                 findBackPassword,
                 formStatus: {
-                    repeat_password: '',
-                    password: '',
-                    email: ''
+                    repeat_password: 'init',
+                    password: 'init',
+                    email: 'init'
                 }
             };
         },
@@ -43,8 +47,30 @@
             FormButton
         },
         methods: {
-            clickHandler: function () {
-                this.isLoading = true;
+            clickHandler: async function () {
+                let { status, msg } = validateAll(this.$store.state.findBackForm);
+                if (!status) {
+                    this.$store.commit('handleMainPortal', {
+                        message: msg,
+                        isPortalOn: true
+                    });
+                } else {
+                    let obj = genFindBackArgs(this.$store.state.findBackForm);
+                    console.log(JSON.stringify(obj));
+                    try {
+                        let response = await axios({
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            data: JSON.stringify(obj),
+                            // url: interfaceGroup..url
+                        });
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
+                // this.isLoading = true;
             },
             setStatus: function (key, value) {
                 this.formStatus[key] = value;

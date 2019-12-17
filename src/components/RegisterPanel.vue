@@ -22,6 +22,7 @@
 <script>
     import { registerList, registerInHyperLink } from '../config/list.config';
     import { interfaceGroup } from '../config/url.config';
+    import { genRegisterArgs } from '../module/genPostArgs';
     import RegisterForm from './elements/Form';
     import HyperLink from './elements/HyperLink';
     import FormButton from './elements/FormButton';
@@ -47,7 +48,7 @@
             FormButton
         },
         methods: {
-            clickHandler: function () {
+            clickHandler: async function () {
                 let { status, msg } = validateAll(this.$store.state.registerForm);
                 if (!status) {
                     this.$store.commit('handleMainPortal', {
@@ -55,7 +56,23 @@
                         isPortalOn: true
                     });
                 } else {
-
+                    let obj = genRegisterArgs(this.$store.state.registerForm);
+                    console.log(JSON.stringify(obj));
+                    try {
+                        let response = await axios({
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            data: JSON.stringify(obj),
+                            url: interfaceGroup.signUp.url,
+                            config: {
+                                withCredentials: true
+                            }
+                        });
+                    } catch (e) {
+                        console.log(e);
+                    }
                 }
             },
             setStatus: function (key, value) {

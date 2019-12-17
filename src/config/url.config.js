@@ -2,21 +2,21 @@ const server = 'http://47.102.140.37:10010';
 
 export const interfaceGroup = {
     signUp: {
-        url: `${server}/signup`,
+        url: `/signup`,
     },
     captcha: {
-        url: `${server}/captcha`,
+        url: `/captcha`,
     },
     signIn: {
-        url: `${server}/signin`
+        url: `/signin`
     },
     modifyInfo: {
-        url: `${server}/modify`
+        url: `/modify`
     },
     createGroup: {
-        url: `${server}/createGroup`
+        url: `/createGroup`
     },
     getInviteCode: {
-        url: `${server}/getInviteCode`
+        url: `/getInviteCode`
     },
 };
