@@ -1,7 +1,7 @@
 const mapToRegister = {
     username: 'nickname',
     password: 'password',
-    email: 'email',
+    email: 'emailAddr',
     verifyCode: 'captcha'
 };
 

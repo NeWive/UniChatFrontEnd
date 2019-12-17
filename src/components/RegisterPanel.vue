@@ -26,8 +26,9 @@
     import RegisterForm from './elements/Form';
     import HyperLink from './elements/HyperLink';
     import FormButton from './elements/FormButton';
-    import axios from 'axios';
     import { validateAll } from '../module/validate';
+    import { requestForImg } from '../module/requestForImg';
+    import { errList } from '../config/err.config';
     export default {
         name: 'RegisterPanel',
         data: function () {
@@ -39,7 +40,8 @@
                     password: 'init',
                     verifyCode: 'init',
                     email: 'init',
-                }
+                },
+                isLoading: false
             };
         },
         components: {
@@ -57,9 +59,9 @@
                     });
                 } else {
                     let obj = genRegisterArgs(this.$store.state.registerForm);
-                    console.log(JSON.stringify(obj));
+                    this.isLoading = true;
                     try {
-                        let response = await axios({
+                        let response = await this.$axios({
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -70,26 +72,29 @@
                                 withCredentials: true
                             }
                         });
+                        if (response.data.status === errList.OK) {
+                            let { avatar, nickname, uid } = response.data.dat;
+                            this.$store.commit('handleMainPortal', {
+                                message: `注册成功，您的ID为：${uid}`,
+                                isPortalOn: true
+                            });
+                        } else {
+                            this.$store.commit('handleMainPortal', {
+                                message: response.data.msg,
+                                isPortalOn: true
+                            });
+                            await requestForImg(interfaceGroup.captcha.url, 'verifyImg', 'verifyCodeImg', 'verifyImgContainer');
+                        }
                     } catch (e) {
+                        alert(e);
                         console.log(e);
+                    } finally {
+                        this.isLoading = false;
                     }
                 }
             },
             setStatus: function (key, value) {
                 this.formStatus[key] = value;
-            }
-        },
-        computed: {
-            isLoading: {
-                get: function () {
-                    return this.$store.state.isLoading;
-                },
-                set: function (value) {
-                    this.$store.commit('updateGlobalState', {
-                        key: 'isLoading',
-                        value: value
-                    });
-                }
             }
         }
     };

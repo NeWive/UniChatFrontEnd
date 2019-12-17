@@ -7,7 +7,6 @@ Vue.use(Vuex);
 const store = {
     // selectedChannelId 为Index selectedGroupId 为 Index
     state: {
-        isLoading: false,
         selectedGroupKey: -1,
         selectedGroup: {}, // 选中的选项 群组
         selectedChannelId: -1,
