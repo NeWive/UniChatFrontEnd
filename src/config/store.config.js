@@ -1871,11 +1871,15 @@ const store = {
             state: {
                 message: '',
                 isPortalOn: false,
+                callback: null
             },
             mutations: {
                 handleMainPortal (state, payload) {
                     state.message = payload.message;
                     state.isPortalOn = payload.isPortalOn;
+                    if (payload.callback) {
+                        state.callback = payload.callback;
+                    }
                 }
             }
         },

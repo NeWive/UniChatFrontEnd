@@ -29,6 +29,8 @@
     import { validateAll } from '../module/validate';
     import { requestForImg } from '../module/requestForImg';
     import { errList } from '../config/err.config';
+    import fs from 'fs';
+    import path from 'path';
     export default {
         name: 'RegisterPanel',
         data: function () {
@@ -52,6 +54,7 @@
         methods: {
             clickHandler: async function () {
                 let { status, msg } = validateAll(this.$store.state.registerForm);
+
                 if (!status) {
                     this.$store.commit('handleMainPortal', {
                         message: msg,
@@ -74,10 +77,18 @@
                         });
                         if (response.data.status === errList.OK) {
                             let { avatar, nickname, uid } = response.data.dat;
+                            const callback = (function (ctx) {
+                                return async function () {
+                                    await requestForImg(interfaceGroup.captcha.url, 'verifyImg', 'verifyCodeImg', 'verifyImgContainer');
+                                    await ctx.$router.push('/main/login');
+                                };
+                            })(this);
                             this.$store.commit('handleMainPortal', {
                                 message: `注册成功，您的ID为：${uid}`,
-                                isPortalOn: true
+                                isPortalOn: true,
+                                callback: callback
                             });
+                            this.isLoading = true;
                         } else {
                             this.$store.commit('handleMainPortal', {
                                 message: response.data.msg,

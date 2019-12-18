@@ -57,9 +57,11 @@
                 alert('minimal');
             },
             closePortal: function () {
+                this.$store.state.mainPortal.callback && this.$store.state.mainPortal.callback();
                 this.$store.commit('handleMainPortal', {
                     message: '',
-                    isPortalOn: false
+                    isPortalOn: false,
+                    callback: null
                 });
             }
         },
