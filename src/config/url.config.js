@@ -23,3 +23,7 @@ export const interfaceGroup = {
         url: `${server}/userInfo`
     }
 };
+
+export const uploadAvatar = {
+    url: 'https://sm.ms/api/upload'
+};

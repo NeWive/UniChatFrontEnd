@@ -27,7 +27,7 @@
             }
         },
         mounted () {
-            console.log(this.$store.state.userInfo);
+
         }
     };
 </script>

@@ -1,19 +1,6 @@
 import path from 'path';
 import axios from 'axios';
 import fs from 'fs';
-import { remote } from 'electron';
-
-// function createUserDir (path, uid) {
-//     console.log(path);
-//     // fs.readdir(path, (err, files) => {
-//     //     if (err) {
-//     //         console.log(err);
-//     //     }
-//     //     if (!files.includes(uid)) {
-//     //         fs.mkdirSync(`./${uid}`);
-//     //     }
-//     // });
-// }
 
 function toBuffer (ab) {
     let buf = Buffer.alloc(ab.byteLength);
@@ -52,6 +39,35 @@ export async function cacheUserInfo (avatar, nickname, uid) {
             uid,
             avatar
         };
+    }
+}
+
+export async function cacheUserAvatar (uid, avatar) {
+    try {
+        let storagePath = path.join(__dirname, `../../../../../../data/`);
+        let files = fs.readdirSync(storagePath);
+        storagePath = path.join(storagePath, `./${uid}`);
+        console.log(storagePath);
+        console.log(files);
+        console.log(uid);
+        if (files.indexOf(`${uid}`) === -1) {
+            fs.mkdirSync(storagePath);
+        }
+        let { data } = await axios({
+            method: 'GET',
+            url: avatar,
+            responseType: 'arraybuffer'
+        });
+        let buffer = toBuffer(data);
+        const imgPath = `${storagePath}/avatar.png`;
+        let childFiles = fs.readdirSync(storagePath);
+        console.log(childFiles);
+        if (childFiles.indexOf('avatar.png') === -1) {
+            fs.unlinkSync(path.resolve(storagePath, 'avatar.png'));
+        }
+        fs.writeFileSync(imgPath, buffer, 'binary');
+    } catch (e) {
+        console.log(e);
     }
 }
 

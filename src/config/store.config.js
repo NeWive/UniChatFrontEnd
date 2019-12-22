@@ -18,6 +18,7 @@ const store = {
         currentFriendsListStatus: 1, // 1 好友 2 群聊
         selectedGroupIndex: -1, // 好友分组
         selectedChatGroupIndex: {},
+        isEditFormLoading: false,
         friendsList: [
             {
                 name: '我的好友分组11111111111111111111111',
@@ -1816,6 +1817,7 @@ const store = {
         isMessageLogOn: false,
         messageLogWidth: 0,
         currentIndex: 0, // Index 页面顶部导航栏
+        portrait: ''
     },
     mutations: {
         updateGlobalState (state, payload) {
@@ -1897,6 +1899,7 @@ const store = {
                 currentIndex: 0, // 当前主界面的位置
                 portalPanelId: -1, // 对应弹出层的ID，查看好友信息为0,
                 selectedFriends: [], // 选中的好友
+                portrait: ''
             },
             mutations: {
                 handlePortal (state, payload) {
@@ -2836,7 +2839,13 @@ const store = {
             },
             mutations: {
                 updateUserInfo (state, payload) {
-                    state[payload.key] = payload.value;
+                    if (payload.key === 'portrait') {
+                        let random = `${payload.value}?t=${Math.random()}`;
+                        console.log(random);
+                        state['portrait'] = random;
+                    } else {
+                        state[payload.key] = payload.value;
+                    }
                 },
                 setUserInfo (state, payload) {
                     let userInfo = payload.userInfo;
@@ -2920,7 +2929,7 @@ const store = {
                 desc: ''
             },
             mutations: {
-                updateUserInfoForm (state, payload) {
+                editUserInfoForm (state, payload) {
                     state[payload.key] = payload.value;
                 }
             },

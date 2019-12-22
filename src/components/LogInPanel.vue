@@ -201,6 +201,11 @@
                                 ctx.$store.commit('setUserInfo', {
                                     userInfo: mapToLogIn(userInfo)
                                 });
+                                console.log(`${userInfo.avatar}?t=${Math.random()}`);
+                                ctx.$store.commit('updateGlobalState', {
+                                    key: 'portrait',
+                                    value: `${userInfo.avatar}?t=${Math.random()}`
+                                });
                                 setTimeout(function () {
                                     ipcRenderer.send('resizeWindow', { width: 1216, height: 763 });
                                     next();

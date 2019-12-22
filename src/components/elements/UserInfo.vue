@@ -1,7 +1,7 @@
 <template>
     <div class="user_info">
         <div class="left" @click="openPortal">
-            <img src="../../assets/temp.jpg" alt="">
+            <img :src="portrait" alt="">
         </div>
         <div class="right">
             <div class="username">
@@ -69,6 +69,13 @@
                         desc,
                         portrait
                     };
+                }
+            },
+            portrait: {
+                get: function () {
+                    let portrait = this.$store.state.portrait;
+                    console.log(portrait);
+                    return portrait;
                 }
             }
         }

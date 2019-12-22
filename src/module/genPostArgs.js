@@ -22,11 +22,16 @@ const mapToUserInfo = {
     username: 'uid',
 };
 
+const mapToAvatar = {
+    avatar: 'avatar'
+};
+
 const mapKey = {
     'findback': mapToFindBackForm,
     'register': mapToRegister,
     'login': mapToLogIn,
-    'userInfo': mapToUserInfo
+    'userInfo': mapToUserInfo,
+    'avatar': mapToAvatar
 };
 
 // export function genFindBackArgs (obj) {
@@ -65,4 +70,11 @@ export function genArgs (obj, key) {
         result.passwordHash = sha.digest().toHex();
     }
     return result;
+}
+
+export function genModifyArgs (key, value) {
+    return {
+        colName: key,
+        newVal: value
+    };
 }

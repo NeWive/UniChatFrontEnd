@@ -1,7 +1,12 @@
 <template>
     <div id="user_info_element">
-        <div class="portal">
-            <img src="../../assets/temp.jpg" alt="">
+        <div class="portal" id="user_info_element_portal">
+            <img
+                    :src="portrait"
+                    alt=""
+                    @click="createFilesInput"
+                    :style="isChangingInfo ? { cursor: 'pointer' } : {}"
+            >
         </div>
         <div class="user_info_content">
             <transition name="fade" mode="out-in">
@@ -48,6 +53,9 @@
                                     :placeholder="this.userInfo.username"
                                     store-name="editUserInfoForm"
                                     store-status-name="editUserInfoFormStatus"
+                                    :status="formStatus.username"
+                                    mutation="editUserInfoForm"
+                                    :set-status="setStatus"
                             />
                         </div>
                         <div class="name">
@@ -69,11 +77,18 @@
                                     :placeholder="this.userInfo.email"
                                     store-name="editUserInfoForm"
                                     store-status-name="editUserInfoFormStatus"
+                                    :status="formStatus.email"
+                                    mutation="editUserInfoForm"
+                                    :set-status="setStatus"
                             />
                         </div>
                         <div class="desc">
                             <p class="label">个人简介:</p>
-                            <textarea :placeholder="this.userInfo.desc"></textarea>
+                            <textarea
+                                    :placeholder="this.userInfo.desc"
+                                    v-model="desc">
+
+                            </textarea>
                         </div>
                     </div>
                 </div>
@@ -91,6 +106,11 @@
 
 <script>
     import Input from './Input';
+    import { interfaceGroup, uploadAvatar } from '../../config/url.config';
+    import { genArgs, genModifyArgs } from '../../module/genPostArgs';
+    import { errList } from '../../config/err.config';
+    import { cacheUserAvatar, cacheUserInfo } from '../../module/dbHandler';
+    import { validate } from '../../module/validate';
     export default {
         name: 'UserInfoPanel',
         components: {
@@ -117,16 +137,37 @@
                 get () {
                     return this.$store.state.portal.allowEdit;
                 }
+            },
+            desc: {
+                get () {
+                    return this.$store.state.editUserInfoForm.desc;
+                },
+                set (value) {
+                    this.$store.commit('editUserInfoForm', {
+                        key: 'desc',
+                        value
+                    });
+                }
+            },
+            portrait: {
+                get () {
+                    return this.$store.state.portrait;
+                },
+                set (value) {
+                    this.$store.commit('updateGlobalState', {
+                        key: 'portrait',
+                        value
+                    });
+                }
             }
         },
         methods: {
+            setStatus: function (key, value) {
+                this.formStatus[key] = value;
+            },
             openEditForm () {
                 console.log(this.isChangingInfo);
                 if (this.isChangingInfo) {
-                    // if (confirm('确定提交吗')) {
-                    //     this.isChangingInfo = false;
-                    //     // this.openEditForm(false);
-                    // }
                     this.confirmHandler = (function (ctx) {
                           let context = ctx;
                           return function () {
@@ -140,7 +181,6 @@
                                   confirmWindowMessage: '',
                                   isConfirmWindowOn: false
                               });
-                              console.log(context.confirmHandler);
                           };
                     })(this);
                     this.cancelHandler = (function (ctx) {
@@ -166,7 +206,117 @@
                 } else {
                     this.isChangingInfo = true;
                 }
+            },
+            async createFilesInput () {
+                if (this.isChangingInfo) {
+                    let target = document.getElementById('user_info_element_portal');
+                    let inputFile = document.createElement('input');
+                    inputFile.type = 'file';
+                    inputFile.style.display = 'none';
+                    inputFile.onchange = this.editAvatar;
+                    target.appendChild(inputFile);
+                    inputFile.click();
+                }
+            },
+            async editAvatar (e) {
+                let target = e.target;
+                let file = target.files[0];
+                let typeList = [
+                    'image/png',
+                    'image/jpeg',
+                    'image/gif',
+                    'image/jpg',
+                ];
+                let father = document.getElementById('user_info_element_portal');
+                if (typeList.indexOf(file.type) === -1) {
+                    alert('图片格式错误');
+                    father.removeChild(target);
+                } else if (file.size > 1024 * 1024) {
+                    alert('图片大小不能超过1M');
+                    father.removeChild(target);
+                } else {
+                    this.$store.commit('updateGlobalState', {
+                        key: 'isEditFormLoading',
+                        value: true
+                    });
+                    console.log(file);
+                    let formData = new FormData();
+                    formData.append('smfile', file);
+                    try {
+                        let { data } = await this.$axios({
+                            method: 'POST',
+                            url: uploadAvatar.url,
+                            data: formData
+                        });
+                        console.log(data);
+                        if (data.code === 'success') {
+                            console.log('上传CDN成功');
+                            let url = data.data.url;
+                            let postData = genModifyArgs('avatar', url);
+                            console.log(postData);
+                            let responseData = await this.$axios({
+                                method: 'POST',
+                                url: interfaceGroup.modifyInfo.url,
+                                data: postData,
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                config: {
+                                    withCredentials: true
+                                }
+                            });
+                            console.log(responseData.data);
+                            if (responseData.data.status === errList.OK) {
+                                try {
+                                    await cacheUserAvatar(this.userInfo.id, url);
+                                    this.getUserAvatar();
+                                } catch (e) {
+                                    console.log(e);
+                                    alert('修改失败');
+                                }
+                            } else {
+                                alert(responseData.msg);
+                            }
+                        } else {
+                            alert(data.message);
+                        }
+                    } catch (e) {
+                        console.log(e);
+                    } finally {
+                        father.removeChild(target);
+                        this.$store.commit('updateGlobalState', {
+                            key: 'isEditFormLoading',
+                            value: false
+                        });
+                    }
+                }
+            },
+            getUserAvatar: function () {
+                try {
+                    let uid = Number(this.userInfo.id);
+                    let ctx = this;
+                    this.$db.userInfo.find({ uid: uid }, function (err, docs) {
+                        err && console.log(err);
+                        console.log(docs);
+                        let [ data ] = docs;
+                        if (data) {
+                            console.log(data.avatar);
+                            ctx.portrait = `${data.avatar}?t=${Math.random()}`;
+                        }
+                    });
+                } catch (e) {
+                    console.log(e);
+                }
             }
+        },
+        data: function () {
+            return {
+                formStatus: {
+                    username: 'init',
+                    password: 'init',
+                    email: 'init'
+                }
+            };
         }
     };
 </script>
