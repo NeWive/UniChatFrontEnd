@@ -22,15 +22,15 @@
 <script>
     import { registerList, registerInHyperLink } from '../config/list.config';
     import { interfaceGroup } from '../config/url.config';
-    import { genRegisterArgs } from '../module/genPostArgs';
+    import { genArgs } from '../module/genPostArgs';
     import RegisterForm from './elements/Form';
     import HyperLink from './elements/HyperLink';
     import FormButton from './elements/FormButton';
     import { validateAll } from '../module/validate';
     import { requestForImg } from '../module/requestForImg';
     import { errList } from '../config/err.config';
-    import fs from 'fs';
-    import path from 'path';
+    import { cacheUserInfo } from '../module/dbHandler';
+
     export default {
         name: 'RegisterPanel',
         data: function () {
@@ -54,14 +54,13 @@
         methods: {
             clickHandler: async function () {
                 let { status, msg } = validateAll(this.$store.state.registerForm);
-
                 if (!status) {
                     this.$store.commit('handleMainPortal', {
                         message: msg,
                         isPortalOn: true
                     });
                 } else {
-                    let obj = genRegisterArgs(this.$store.state.registerForm);
+                    let obj = genArgs(this.$store.state.registerForm, 'register');
                     this.isLoading = true;
                     try {
                         let response = await this.$axios({
@@ -77,10 +76,15 @@
                         });
                         if (response.data.status === errList.OK) {
                             let { avatar, nickname, uid } = response.data.dat;
+                            let data = await cacheUserInfo(avatar, nickname, uid);
+                            this.$db.userInfo.insert(data, function (err, newDoc) {
+                                err && console.log(err);
+                                console.log(newDoc);
+                            });
                             const callback = (function (ctx) {
                                 return async function () {
-                                    await requestForImg(interfaceGroup.captcha.url, 'verifyImg', 'verifyCodeImg', 'verifyImgContainer');
                                     await ctx.$router.push('/main/login');
+                                    ctx.$store.commit('clearRegisterForm');
                                 };
                             })(this);
                             this.$store.commit('handleMainPortal', {

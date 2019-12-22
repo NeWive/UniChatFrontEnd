@@ -7,6 +7,7 @@ Vue.use(Vuex);
 const store = {
     // selectedChannelId 为Index selectedGroupId 为 Index
     state: {
+        isLoading: false,
         selectedGroupKey: -1,
         selectedGroup: {}, // 选中的选项 群组
         selectedChannelId: -1,
@@ -2831,15 +2832,20 @@ const store = {
         },
         userInfo: {
             state: {
-                username: 'NeWive',
-                id: '738767136',
-                desc: '嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧嘤嘤嘤吧',
-                email: '738767136@qq.com',
-                portrait: '../../assets/temp.jpg'
+
             },
             mutations: {
                 updateUserInfo (state, payload) {
                     state[payload.key] = payload.value;
+                },
+                setUserInfo (state, payload) {
+                    let userInfo = payload.userInfo;
+                    for (let item in userInfo) {
+                        if (userInfo.hasOwnProperty(item)) {
+                            state[item] = userInfo[item];
+                        }
+                    }
+                    console.log(state);
                 }
             }
         },

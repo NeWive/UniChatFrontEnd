@@ -19,4 +19,7 @@ export const interfaceGroup = {
     getInviteCode: {
         url: `${server}/getInviteCode`
     },
+    getUserInfo: {
+        url: `${server}/userInfo`
+    }
 };

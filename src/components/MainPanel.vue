@@ -131,6 +131,7 @@
             top: 0;
             right: 0;
             margin: auto;
+            z-index: 9999;
             #main_panel_layer {
                 position: absolute;
                 width: 100%;

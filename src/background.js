@@ -1,5 +1,5 @@
-import { app, protocol, BrowserWindow } from 'electron';
-import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib';
+import { app, protocol, BrowserWindow, Menu, ipcMain } from 'electron';
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -13,10 +13,14 @@ protocol.registerSchemesAsPrivileged([{
     }
 }]);
 
+function handleTopMenu () {
+    Menu.setApplicationMenu(null);
+}
+
 function createWindow () {
     window = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 540,
+        height: 697,
         webPreferences: {
             nodeIntegration: true,
             webSecurity: false
@@ -32,6 +36,8 @@ function createWindow () {
         createProtocol('app');
         window.loadURL('app://./index.html').then(() => console.log('success'));
     }
+
+    // handleTopMenu();
 
     window.on('closed', () => {
         window = null;
@@ -51,14 +57,18 @@ app.on('activate', () => {
 });
 
 app.on('ready', async () => {
-   if (isDevelopment && !process.env.IS_TEST) {
-       try {
-           await installVueDevtools();
-       } catch (e) {
-           console.error('VueDevtools failed to install: ', e.toString());
-       }
-   }
+   // if (isDevelopment && !process.env.IS_TEST) {
+   //     try {
+   //         await installVueDevtools();
+   //     } catch (e) {
+   //         console.error('VueDevtools failed to install: ', e.toString());
+   //     }
+   // }
    createWindow();
+});
+
+ipcMain.on('resizeWindow', (event, arg) => {
+    window && window.setSize(arg.width, arg.height);
 });
 
 if (isDevelopment) {

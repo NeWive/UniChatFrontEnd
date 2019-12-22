@@ -1,7 +1,7 @@
 <template>
     <div class="portrait_container">
-        <div class="portrait" :class="isLoading ? 'start_por' : ''">
-            <img src="../../assets/temp.jpg" alt="">
+        <div class="portrait" id="" :class="isLoading ? 'start_por' : ''">
+            <img src="../../assets/temp.jpg" alt="" id="portrait">
         </div>
         <div class="animation" :class="isLoading ? 'start' : ''">
 
@@ -31,6 +31,9 @@
             isLoading: {
                 type: Boolean,
                 default: false
+            },
+            data: {
+                required: true
             }
         }
     };

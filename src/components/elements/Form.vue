@@ -12,6 +12,7 @@
                 :status="storeStatus[item.key]"
                 :mutation="mutation"
                 :set-status="setStatus"
+                :on-change-call-back="(storeName === 'logInForm') && (item.key === 'username') ? onChangeCallBack : false"
         />
     </div>
 </template>
@@ -44,6 +45,9 @@
             setStatus: {
                 type: Function,
                 require: true
+            },
+            onChangeCallBack: {
+                default: false
             }
         }
     };

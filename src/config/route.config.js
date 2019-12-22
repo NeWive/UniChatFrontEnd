@@ -6,7 +6,6 @@ import VueRouter from 'vue-router';
 // import RegisterPanel from '../components/RegisterPanel';
 // import SessionPanel from '../components/SessionPanel';
 // import FriendsPanel from '../components/FriendsPanel';
-
 const IndexPanel = () => import('../components/IndexPanel');
 const MainPanel = () => import('../components/MainPanel');
 const LogInPanel = () => import('../components/LogInPanel');
@@ -28,7 +27,7 @@ const routersConfig = [
             {
                 path: 'login',
                 name: 'login',
-                component: LogInPanel
+                component: LogInPanel,
             },
             {
                 path: 'register',
@@ -40,7 +39,7 @@ const routersConfig = [
                 name: 'forget_password',
                 component: ForgetPasswordPanel
             }
-        ]
+        ],
     },
     {
         path: '/index',
@@ -59,7 +58,10 @@ const routersConfig = [
                 name: 'friends',
                 component: FriendsPanel
             }
-        ]
+        ],
+        beforeRouteEnter (to, from, next) {
+            console.log(from);
+        }
     },
     {
         path: '/',
@@ -72,7 +74,7 @@ const routersConfig = [
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes: routersConfig
+    routes: routersConfig,
 });
 
 export default router;

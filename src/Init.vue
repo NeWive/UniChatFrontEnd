@@ -15,6 +15,7 @@
 <style lang="scss">
   @import './init';
   #Init {
+    overflow: hidden;
     .fade-enter-active, .fade-leave-active {
       transition: opacity .5s;
     }

@@ -42,7 +42,8 @@
             return {
                 isFetched: false,
                 errMessage: '',
-                url: interfaceGroup.captcha.url
+                url: interfaceGroup.captcha.url,
+                timer: null,
             };
         },
         props: {
@@ -81,6 +82,9 @@
             setStatus: {
                 type: Function,
                 required: true
+            },
+            onChangeCallBack: {
+                default: false
             }
         },
         methods: {
@@ -105,6 +109,16 @@
                     let { status, msg } = validate(value, this.property);
                     this.setStatus(this.property, !status ? 'err' : 'init');
                     this.errMessage = msg;
+                    if (this.onChangeCallBack) {
+                        if (this.timer) {
+                            clearTimeout(this.timer);
+                            this.timer = null;
+                        }
+                        let context = this;
+                        this.timer = setTimeout(() => {
+                            this.onChangeCallBack.call(context);
+                        }, 1000);
+                    }
                 }
             }
         }

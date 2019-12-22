@@ -1,3 +1,5 @@
+import forge from 'node-forge';
+
 const mapToRegister = {
     username: 'nickname',
     password: 'password',
@@ -10,22 +12,57 @@ const mapToFindBackForm = {
     email: 'email'
 };
 
-export function genFindBackArgs (obj) {
+const mapToLogIn = {
+    username: 'uid',
+    password: 'passwordHash',
+    verifyCode: 'captcha'
+};
+
+const mapToUserInfo = {
+    username: 'uid',
+};
+
+const mapKey = {
+    'findback': mapToFindBackForm,
+    'register': mapToRegister,
+    'login': mapToLogIn,
+    'userInfo': mapToUserInfo
+};
+
+// export function genFindBackArgs (obj) {
+//     let result = {};
+//     for (let item in obj) {
+//         if (obj.hasOwnProperty(item) && mapToFindBackForm.hasOwnProperty(item)) {
+//             result[mapToFindBackForm[item]] = obj[item];
+//         }
+//     }
+//     return result;
+// }
+//
+// export function genRegisterArgs (obj) {
+//     let result = {};
+//     for (let item in obj) {
+//         if (obj.hasOwnProperty(item)) {
+//             result[mapToRegister[item]] = obj[item];
+//         }
+//     }
+//     return result;
+// }
+
+export function genArgs (obj, key) {
     let result = {};
     for (let item in obj) {
-        if (obj.hasOwnProperty(item) && mapToFindBackForm.hasOwnProperty(item)) {
-            result[mapToFindBackForm[item]] = obj[item];
+        if (obj.hasOwnProperty(item) && mapKey[key].hasOwnProperty(item)) {
+            result[mapKey[key][item]] = obj[item];
         }
     }
-    return result;
-}
-
-export function genRegisterArgs (obj) {
-    let result = {};
-    for (let item in obj) {
-        if (obj.hasOwnProperty(item)) {
-            result[mapToRegister[item]] = obj[item];
-        }
+    if (key === 'login') {
+        let sha = forge.md.sha256.create();
+        sha.update(result['passwordHash']);
+        let resultMiddle = sha.digest().toHex();
+        sha = forge.md.sha256.create();
+        sha.update(resultMiddle + result.captcha);
+        result.passwordHash = sha.digest().toHex();
     }
     return result;
 }
