@@ -36,3 +36,34 @@ npm run build
 #### `components`主组件
 ##### `elements` 子组件
 ## [UniChatBackEnd](https://github.com/OhnkytaBlabdey/unichat-back-end) Github 联动
+## 项目部署
+1.  在项目目录下执行以下脚本
+
+    ```shell
+    npm install electron-builder --save-dev
+    ```
+
+2.  在 `package.json` 内做如下配置
+
+    ```json
+    "build": {
+        "appId": "appName",
+        "mac": {
+            "target": ["dmg", "zip"]
+        },
+        "win": {
+            "target": ["nsis", "zip"]
+        }
+    },
+    "scripts": {
+     	"dist": "electron-builder --win --x64"   
+    }
+    ```
+
+3.  执行以下脚本
+
+    ```shell
+    npm run dist
+    ```
+
+4.  在目录下找到对应的安装包
