@@ -36,7 +36,7 @@
     "nedb": "^1.8.0",
     "node-forge": "^0.9.1",
     "node-sass": "^4.13.0",
-    "qs": "^6.9.1",
+    "qs": "^6.9.7",
     "sass-loader": "^8.0.0",
     "sha256": "^0.2.0",
     "vue-cli-plugin-electron-builder": "^1.4.1",
